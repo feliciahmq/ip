@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Claudia {
-    private static String[] tasks = new String[100];
+    private static final Task[] tasks = new Task[100];
     private static int noOfTasks = 0;
 
     public static void main(String[] args) {
@@ -13,18 +13,27 @@ public class Claudia {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.nextLine();
+            String[] commands = input.split(" ");
 
-            if (input.equals("bye")) {
-                print(exit);
-                break;
-            } else if (input.equals("list")) {
-                displayList();
-            } else {
-                addTask(input);
+            switch (commands[0]) {
+                case "bye":
+                    print(exit);
+                    return;
+                case "list":
+                    displayList();
+                    break;
+                case "mark":
+                    Task t1 = tasks[Integer.parseInt(commands[1]) - 1];
+                    print(t1.markAsDone());
+                    break;
+                case "unmark":
+                    Task t2 = tasks[Integer.parseInt(commands[1]) - 1];
+                    print(t2.markAsNotDone());
+                    break;
+                default:
+                    addTask(new Task(input));
             }
         }
-
-        scanner.close();
     }
 
     private static void print(String s) {
@@ -34,20 +43,21 @@ public class Claudia {
         System.out.println(output);
     }
 
-    private static void addTask(String task) {
+    private static void addTask(Task task) {
         tasks[noOfTasks] = task;
         noOfTasks++;
-        print(" added: " + task);
+        print(" added: " + task.toString());
     }
 
     private static void displayList() {
-        String output = "";
+        String output = "Here are the tasks in your list:\n";
         for (int i = 0; i < noOfTasks; i++) {
-            output += " " + (i + 1) + ". " + tasks[i];
+            output += " " + (i + 1) + "." + tasks[i].toString();
             if (i < noOfTasks - 1) {
                 output += "\n";
             }
         }
+
         print(output);
     }
 }
