@@ -1,10 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Claudia {
     private static final String GREET = " Hello! I'm Claudia.\n What can I do for you?";
     private static final String EXIT = " Bye. Hope to see you again soon!";
-    private static final Task[] tasks = new Task[100];
-    private static int noOfTasks = 0;
+    private static final ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         print(GREET);
@@ -51,6 +51,9 @@ public class Claudia {
                     }
                     handleEvent(commands[1]);
                     break;
+                case "delete":
+                    handleDelete(commands[1]);
+                    break;
                 default:
                     new UnknownInputException().printException();
             }
@@ -69,25 +72,40 @@ public class Claudia {
     }
 
     private static void addTask(Task task) {
-        tasks[noOfTasks] = task;
-        noOfTasks++;
+        tasks.add(task);
         printLine();
         System.out.println(" Got it. I've added this task:");
         System.out.println("  " + task.toString());
-        System.out.printf(" Now you have %d tasks in the list.\n", noOfTasks);
+        System.out.printf(" Now you have %d tasks in the list.\n", tasks.size());
+        printLine();
+    }
+
+    private static void displayList() {
+        if (tasks.isEmpty()) {
+            new EmptyListException().printException();
+            return;
+        }
+
+        printLine();
+        System.out.println(" Here are the tasks in your list:");
+
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.printf(" %d.%s%n", i + 1, tasks.get(i).toString());
+        }
+
         printLine();
     }
 
     private static void handleMarkUnmark(String command, String index) {
         try {
             int i = Integer.parseInt(index) - 1; // zero-based
-            if (i < 0 || i >= noOfTasks) {
-                new InvalidTaskNumberException(noOfTasks).printException();
+            if (i < 0 || i >= tasks.size()) {
+                new InvalidTaskNumberException(tasks.size()).printException();
                 return;
             }
 
-            Task t = tasks[i];
-            String success =t.markAsDone();
+            Task t = tasks.get(i);
+            String success = command.equals("mark") ? t.markAsDone() : t.markAsNotDone();
             print(success);
         } catch (NumberFormatException e) {
             new InvalidFormatException("Invalid number.").printException();
@@ -131,20 +149,24 @@ public class Claudia {
         addTask(new Event(eventInfo[0], dateTime[0], dateTime[1]));
     }
 
-    private static void displayList() {
-        if (noOfTasks == 0) {
-            new EmptyListException().printException();
-            return;
+    private static void handleDelete(String index) {
+        try {
+            int i = Integer.parseInt(index) - 1; // zero-based
+            if (i < 0 || i >= tasks.size()) {
+                new InvalidTaskNumberException(tasks.size()).printException();
+                return;
+            }
+
+            Task t = tasks.get(i);
+            tasks.remove(t);
+            printLine();
+            System.out.println(" Noted. I've removed this task:");
+            System.out.println("  " + t.toString());
+            System.out.printf(" Now you have %d tasks in the list.\n", tasks.size());
+            printLine();
+        } catch (NumberFormatException e) {
+            new InvalidFormatException("Invalid number.").printException();
         }
-
-        printLine();
-        System.out.println(" Here are the tasks in your list:");
-
-        for (int i = 0; i < noOfTasks; i++) {
-            System.out.printf(" %d.%s%n", i + 1, tasks[i].toString());
-        }
-
-        printLine();
     }
 
     private static boolean checkMissingDescription(String[] commands) {
