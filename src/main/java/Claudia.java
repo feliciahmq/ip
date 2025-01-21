@@ -55,6 +55,9 @@ public class Claudia {
                     handleEvent(commands[1]);
                     break;
                 case DELETE:
+                    if (checkMissingDescription(commands)) {
+                        continue;
+                    }
                     handleDelete(commands[1]);
                     break;
                 default:
@@ -153,6 +156,11 @@ public class Claudia {
     }
 
     private static void handleDelete(String index) {
+        if (tasks.isEmpty()) {
+            new EmptyListException().printException();
+            return;
+        }
+
         try {
             int i = Integer.parseInt(index) - 1; // zero-based
             if (i < 0 || i >= tasks.size()) {
