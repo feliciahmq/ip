@@ -13,19 +13,19 @@ public class Task {
 
     public String markAsDone() {
         isDone = true;
-        return " Nice! I've marked this task as done:\n "
+        return " Nice! I've marked this task as done:\n" + "  "
                 + this.toString();
     }
 
     public String markAsNotDone() {
         isDone = false;
-        return " OK, I've marked this task as not done yet:\n "
+        return " OK, I've marked this task as not done yet:\n " + "  "
                 + this.toString();
     }
 
     @Override
     public String toString() {
-        return " [" + getStatusIcon() + "] " + this.description;
+        return String.format("[%s] %s", getStatusIcon(), this.description);
     }
 
 }

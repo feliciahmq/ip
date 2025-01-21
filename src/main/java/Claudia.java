@@ -27,6 +27,19 @@ public class Claudia {
                 case "unmark":
                     unmarkTask(Integer.parseInt(commands[1]) - 1);
                     break;
+                case "todo":
+                    addTask(new Todo(commands[1]));
+                    break;
+                case "deadline":
+                    String[] info = commands[1].split("/by", 2);
+                    addTask(new Deadline(info[0], info[1]));
+                    break;
+                case "event":
+                    String[] details = commands[1].split("/from", 2);
+                    String description = details[0];
+                    String[] dateTime = details[1].split("/to", 2);
+                    addTask(new Event(description, dateTime[0], dateTime[1]));
+                    break;
                 default:
                     addTask(new Task(input));
             }
@@ -47,7 +60,11 @@ public class Claudia {
     private static void addTask(Task task) {
         tasks[noOfTasks] = task;
         noOfTasks++;
-        print(" added: " + task.toString());
+        printLine();
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("  " + task.toString());
+        System.out.printf(" Now you have %d tasks in the list.\n", noOfTasks);
+        printLine();
     }
 
     private static void markTask(int index) {
@@ -66,7 +83,7 @@ public class Claudia {
         printLine();
         System.out.println(" Here are the tasks in your list:");
         for (int i = 0; i < noOfTasks; i++) {
-            System.out.printf(" %d. %s%n", i + 1, tasks[i].toString());
+            System.out.printf(" %d.%s%n", i + 1, tasks[i].toString());
         }
 
         printLine();
