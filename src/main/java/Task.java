@@ -19,7 +19,7 @@ public class Task {
 
     public String markAsNotDone() {
         isDone = false;
-        return " OK, I've marked this task as not done yet:\n " + "  "
+        return " OK, I've marked this task as not done yet:\n" + "  "
                 + this.toString();
     }
 
