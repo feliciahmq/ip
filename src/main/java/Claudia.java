@@ -30,61 +30,26 @@ public class Claudia {
                     displayList();
                     break;
                 case "mark":
-                    // not a number type for description
-                    markTask(Integer.parseInt(commands[1]) - 1);
-                    break;
                 case "unmark":
-                    unmarkTask(Integer.parseInt(commands[1]) - 1);
+                    handleMarkUnmark(command, commands[1]);
                     break;
                 case "todo":
-                    if (!checkMissingDescription(commands)) {
+                    if (checkMissingDescription(commands)) {
                         continue;
                     }
                     addTask(new Todo(commands[1]));
                     break;
                 case "deadline":
-                    if (!checkMissingDescription(commands)) {
+                    if (checkMissingDescription(commands)) {
                         continue;
                     }
-                    String description = commands[1];
-                    if (!description.contains("/by")) {
-                        new InvalidFormatException("Invalid deadline format. Use: deadline <task> /by <date>").printException();
-                        break;
-                    }
-
-                    String[] deadlineInfo = description.split("/by", 2);
-                    if (deadlineInfo.length < 2 || deadlineInfo[0].isEmpty() || deadlineInfo[1].isEmpty()) {
-                        new InvalidFormatException("Invalid deadline format. Use: deadline <task> /by <date>").printException();
-                        break;
-                    }
-
-                    addTask(new Deadline(deadlineInfo[0], deadlineInfo[1]));
+                   handleDeadline(commands[1]);
                     break;
                 case "event":
-                    if (!checkMissingDescription(commands)) {
+                    if (checkMissingDescription(commands)) {
                         continue;
                     }
-                    String desc = commands[1];
-
-                    // missing /from or /to
-                    if (!desc.contains("/from") || !desc.contains("/to")) {
-                        new InvalidFormatException("Invalid event format. Use: event <task> /from <start> /to <end>").printException();
-                        continue;
-                    }
-
-                    String[] eventInfo = commands[1].split("/from", 2);
-                    if (eventInfo.length < 2 || eventInfo[0].isEmpty() || eventInfo[1].isEmpty()) {
-                        new InvalidFormatException("Invalid event format. Use: event <task> /from <start> /to <end>").printException();
-                        continue;
-                    }
-
-                    String[] dateTime = eventInfo[1].split("/to", 2);
-                    if (dateTime.length < 2 || dateTime[0].isEmpty() || dateTime[1].isEmpty()) {
-                        new InvalidFormatException("Invalid event format. Use: event <task> /from <start> /to <end>").printException();
-                        continue;
-                    }
-
-                    addTask(new Event(commands[1], dateTime[0], dateTime[1]));
+                    handleEvent(commands[1]);
                     break;
                 default:
                     new UnknownInputException().printException();
@@ -113,27 +78,57 @@ public class Claudia {
         printLine();
     }
 
-    private static void markTask(int index) {
-        // index here not numbering
-        if (index < 0 || index >= noOfTasks) {
-            new InvalidTaskNumberException(noOfTasks).printException();
-            return;
-        }
+    private static void handleMarkUnmark(String command, String index) {
+        try {
+            int i = Integer.parseInt(index) - 1; // zero-based
+            if (i < 0 || i >= noOfTasks) {
+                new InvalidTaskNumberException(noOfTasks).printException();
+                return;
+            }
 
-        Task t = tasks[index];
-        String success =t.markAsDone();
-        print(success);
+            Task t = tasks[i];
+            String success =t.markAsDone();
+            print(success);
+        } catch (NumberFormatException e) {
+            new InvalidFormatException("Invalid number.").printException();
+        }
     }
 
-    private static void unmarkTask(int index) {
-        if (index < 0 || index >= noOfTasks) {
-            new InvalidTaskNumberException(noOfTasks).printException();
+    private static void handleDeadline(String desc) {
+        if (!desc.contains("/by")) {
+            new InvalidFormatException("Invalid deadline format. Use: deadline <task> /by <date>").printException();
             return;
         }
 
-        Task t = tasks[index];
-        String success = t.markAsNotDone();
-        print(success);
+        String[] deadlineInfo = desc.split("/by", 2);
+        if (deadlineInfo.length < 2 || deadlineInfo[0].isEmpty() || deadlineInfo[1].isEmpty()) {
+            new InvalidFormatException("Invalid deadline format. Use: deadline <task> /by <date>").printException();
+            return;
+        }
+
+        addTask(new Deadline(deadlineInfo[0], deadlineInfo[1]));
+    }
+
+    private static void handleEvent(String desc) {
+        // missing /from or /to
+        if (!desc.contains("/from") || !desc.contains("/to")) {
+            new InvalidFormatException("Invalid event format. Use: event <task> /from <start> /to <end>").printException();
+            return;
+        }
+
+        String[] eventInfo = desc.split("/from", 2);
+        if (eventInfo.length < 2 || eventInfo[0].isEmpty() || eventInfo[1].isEmpty()) {
+            new InvalidFormatException("Invalid event format. Use: event <task> /from <start> /to <end>").printException();
+            return;
+        }
+
+        String[] dateTime = eventInfo[1].split("/to", 2);
+        if (dateTime.length < 2 || dateTime[0].isEmpty() || dateTime[1].isEmpty()) {
+            new InvalidFormatException("Invalid event format. Use: event <task> /from <start> /to <end>").printException();
+            return;
+        }
+
+        addTask(new Event(eventInfo[0], dateTime[0], dateTime[1]));
     }
 
     private static void displayList() {
@@ -153,11 +148,11 @@ public class Claudia {
     }
 
     private static boolean checkMissingDescription(String[] commands) {
-        // missing description
+        // missing description, true if missing
         if (commands.length < 2 || commands[1].trim().isEmpty()) {
             new MissingDescriptionException(commands[0]).printException();
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 }
