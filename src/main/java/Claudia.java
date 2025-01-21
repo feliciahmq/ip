@@ -1,34 +1,31 @@
 import java.util.Scanner;
 
 public class Claudia {
+    private static final String GREET = " Hello! I'm Claudia.\n What can I do for you?";
+    private static final String EXIT = " Bye. Hope to see you again soon!";
     private static final Task[] tasks = new Task[100];
     private static int noOfTasks = 0;
 
     public static void main(String[] args) {
-        String greet = " Hello! I'm Claudia.\n What can I do for you?";
-        String exit = " Bye. Hope to see you again soon!";
-
-        print(greet);
+        print(GREET);
 
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.nextLine();
-            String[] commands = input.split(" ");
+            String[] commands = input.split(" ", 2);
 
             switch (commands[0]) {
                 case "bye":
-                    print(exit);
+                    print(EXIT);
                     return;
                 case "list":
                     displayList();
                     break;
                 case "mark":
-                    Task t1 = tasks[Integer.parseInt(commands[1]) - 1];
-                    print(t1.markAsDone());
+                    markTask(Integer.parseInt(commands[1]) - 1);
                     break;
                 case "unmark":
-                    Task t2 = tasks[Integer.parseInt(commands[1]) - 1];
-                    print(t2.markAsNotDone());
+                    unmarkTask(Integer.parseInt(commands[1]) - 1);
                     break;
                 default:
                     addTask(new Task(input));
@@ -36,11 +33,15 @@ public class Claudia {
         }
     }
 
+    private static void printLine() {
+        String line = "____________________________________________________________";
+        System.out.println(line);
+    }
+
     private static void print(String s) {
-        String output = "____________________________________________________________\n"
-                + s + "\n"
-                + "____________________________________________________________\n";
-        System.out.println(output);
+        printLine();
+        System.out.println(s);
+        printLine();
     }
 
     private static void addTask(Task task) {
@@ -49,15 +50,25 @@ public class Claudia {
         print(" added: " + task.toString());
     }
 
+    private static void markTask(int index) {
+        Task t = tasks[index];
+        String success =t.markAsDone();
+        print(success);
+    }
+
+    private static void unmarkTask(int index) {
+        Task t = tasks[index];
+        String success = t.markAsNotDone();
+        print(success);
+    }
+
     private static void displayList() {
-        String output = "Here are the tasks in your list:\n";
+        printLine();
+        System.out.println(" Here are the tasks in your list:");
         for (int i = 0; i < noOfTasks; i++) {
-            output += " " + (i + 1) + "." + tasks[i].toString();
-            if (i < noOfTasks - 1) {
-                output += "\n";
-            }
+            System.out.printf(" %d. %s%n", i + 1, tasks[i].toString());
         }
 
-        print(output);
+        printLine();
     }
 }
