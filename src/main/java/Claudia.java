@@ -20,38 +20,41 @@ public class Claudia {
             }
 
             String[] commands = input.split(" ", 2); // at most 2 parts
-            String command = commands[0];
+            Command command = Command.fromString(commands[0]); // enums
 
             switch (command) {
-                case "bye":
+                case BYE:
                     print(EXIT);
                     return;
-                case "list":
+                case LIST:
                     displayList();
                     break;
-                case "mark":
-                case "unmark":
+                case MARK:
+                case UNMARK:
+                    if (checkMissingDescription(commands)) {
+                        continue;
+                    }
                     handleMarkUnmark(command, commands[1]);
                     break;
-                case "todo":
+                case TODO:
                     if (checkMissingDescription(commands)) {
                         continue;
                     }
                     addTask(new Todo(commands[1]));
                     break;
-                case "deadline":
+                case DEADLINE:
                     if (checkMissingDescription(commands)) {
                         continue;
                     }
                    handleDeadline(commands[1]);
                     break;
-                case "event":
+                case EVENT:
                     if (checkMissingDescription(commands)) {
                         continue;
                     }
                     handleEvent(commands[1]);
                     break;
-                case "delete":
+                case DELETE:
                     handleDelete(commands[1]);
                     break;
                 default:
@@ -96,7 +99,7 @@ public class Claudia {
         printLine();
     }
 
-    private static void handleMarkUnmark(String command, String index) {
+    private static void handleMarkUnmark(Command command, String index) {
         try {
             int i = Integer.parseInt(index) - 1; // zero-based
             if (i < 0 || i >= tasks.size()) {
@@ -105,7 +108,7 @@ public class Claudia {
             }
 
             Task t = tasks.get(i);
-            String success = command.equals("mark") ? t.markAsDone() : t.markAsNotDone();
+            String success = (command == Command.MARK) ? t.markAsDone() : t.markAsNotDone();
             print(success);
         } catch (NumberFormatException e) {
             new InvalidFormatException("Invalid number.").printException();
