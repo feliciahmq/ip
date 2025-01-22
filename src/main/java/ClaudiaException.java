@@ -1,18 +1,9 @@
-public class ClaudiaException {
-    private final String message;
-
+public class ClaudiaException extends Exception {
     public ClaudiaException(String message) {
-        this.message = message;
-    }
-
-    public void printException() {
-        String line = "____________________________________________________________";
-        System.out.println(line);
-        System.out.println(" OOPS!!! " + message);
-        System.out.println(line);
+        super(message);
     }
 }
 
-// if it is an exception, not a custom class in this case:
+// if it is an exception
 // extends Exception -> checked exception
 // declared in throws or caught in try-catch block
