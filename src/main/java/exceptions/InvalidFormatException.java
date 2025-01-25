@@ -1,3 +1,5 @@
+package exceptions;
+
 public class InvalidFormatException extends ClaudiaException {
     public InvalidFormatException(String message) {
         super(message);

@@ -1,3 +1,17 @@
+import tasks.Task;
+import commands.Command;
+
+import exceptions.UnknownInputException;
+import exceptions.EmptyListException;
+import exceptions.InvalidFormatException;
+import exceptions.MissingDescriptionException;
+import exceptions.InvalidTaskNumberException;
+import exceptions.ClaudiaException;
+
+import tasks.Todo;
+import tasks.Deadline;
+import tasks.Event;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -22,35 +36,35 @@ public class Claudia {
                 Command command = Command.fromString(commands[0]); // enums
 
                 switch (command) {
-                    case BYE:
-                        print(EXIT);
-                        return;
-                    case LIST:
-                        displayList();
-                        break;
-                    case MARK:
-                    case UNMARK:
-                        checkMissingDescription(commands);
-                        handleMarkUnmark(command, commands[1]);
-                        break;
-                    case TODO:
-                        checkMissingDescription(commands);
-                        addTask(new Todo(commands[1]));
-                        break;
-                    case DEADLINE:
-                        checkMissingDescription(commands);
-                        handleDeadline(commands[1]);
-                        break;
-                    case EVENT:
-                        checkMissingDescription(commands);
-                        handleEvent(commands[1]);
-                        break;
-                    case DELETE:
-                        checkMissingDescription(commands);
-                        handleDelete(commands[1]);
-                        break;
-                    default:
-                        throw new UnknownInputException();
+                case BYE:
+                    print(EXIT);
+                    return;
+                case LIST:
+                    displayList();
+                    break;
+                case MARK:
+                case UNMARK:
+                    checkMissingDescription(commands);
+                    handleMarkUnmark(command, commands[1]);
+                    break;
+                case TODO:
+                    checkMissingDescription(commands);
+                    addTask(new Todo(commands[1]));
+                    break;
+                case DEADLINE:
+                    checkMissingDescription(commands);
+                    handleDeadline(commands[1]);
+                    break;
+                case EVENT:
+                    checkMissingDescription(commands);
+                    handleEvent(commands[1]);
+                    break;
+                case DELETE:
+                    checkMissingDescription(commands);
+                    handleDelete(commands[1]);
+                    break;
+                default:
+                    throw new UnknownInputException();
                 }
             } catch (ClaudiaException e) {
                 print("OOPS!!! " + e.getMessage()); // catch all custom exceptions here, then print message

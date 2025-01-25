@@ -1,3 +1,5 @@
+package exceptions;
+
 public class UnknownInputException extends ClaudiaException {
     public UnknownInputException() {
         super("I don't know what that means :(");

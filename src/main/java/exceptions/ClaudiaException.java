@@ -1,3 +1,5 @@
+package exceptions;
+
 public class ClaudiaException extends Exception {
     public ClaudiaException(String message) {
         super(message);
