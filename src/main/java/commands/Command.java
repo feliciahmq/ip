@@ -1,21 +1,10 @@
 package commands;
 
-public enum Command {
-    BYE,
-    LIST,
-    MARK,
-    UNMARK,
-    TODO,
-    DEADLINE,
-    EVENT,
-    DELETE,
-    UNKNOWN;
+import exceptions.ClaudiaException;
+import tasks.Task;
 
-    public static Command fromString(String command) {
-        try {
-            return Command.valueOf(command.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            return Command.UNKNOWN;
-        }
-    }
+import java.util.ArrayList;
+
+public abstract class Command {
+    public abstract ArrayList<Task> execute(ArrayList<Task> tasks) throws ClaudiaException;
 }
