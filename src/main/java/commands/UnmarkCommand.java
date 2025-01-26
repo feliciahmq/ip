@@ -8,6 +8,7 @@ import tasks.Task;
 import java.util.ArrayList;
 
 public class UnmarkCommand extends Command {
+    private static final String LINE = "____________________________________________________________";
     private final String index;
 
     public UnmarkCommand(String index) {
@@ -23,8 +24,10 @@ public class UnmarkCommand extends Command {
             }
 
             Task t = tasks.get(i);
+            System.out.println(LINE);
             String success = t.markAsNotDone();
             System.out.println(success);
+            System.out.println(LINE);
         } catch (NumberFormatException e) {
             throw new InvalidFormatException("Invalid number.");
         }

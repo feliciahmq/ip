@@ -24,7 +24,6 @@ public class ListCommand extends Command {
 
         System.out.println(LINE);
 
-        System.out.println(" Here are the tasks in your list:");
         return tasks;
     }
 
