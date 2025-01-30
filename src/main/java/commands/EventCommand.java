@@ -2,6 +2,8 @@ package commands;
 
 import exceptions.ClaudiaException;
 import exceptions.InvalidFormatException;
+import misc.TaskList;
+import storage.Storage;
 import tasks.Event;
 import tasks.Task;
 
@@ -16,9 +18,10 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public ArrayList<Task> execute(ArrayList<Task> tasks) throws ClaudiaException {
+    public TaskList execute(TaskList tasks, Storage storage) throws ClaudiaException {
         Event event = getEvent();
-        tasks.add(event);
+        tasks.addTask(event);
+        storage.save(tasks);
         System.out.println(LINE);
         System.out.println(" Got it. I've added this task:");
         System.out.println("  " + event.toString());
@@ -26,6 +29,11 @@ public class EventCommand extends Command {
         System.out.println(LINE);
 
         return tasks;
+    }
+
+    @Override
+    public boolean isExit() {
+        return false;
     }
 
     private Event getEvent() throws InvalidFormatException {
@@ -44,6 +52,6 @@ public class EventCommand extends Command {
             throw new InvalidFormatException("Invalid event format. Use: event <task> /from <start> /to <end>");
         }
 
-        return new Event(eventInfo[0], dateTime[0], dateTime[1]);
+        return new Event(eventInfo[0].trim(), dateTime[0].trim(), dateTime[1].trim());
     }
 }

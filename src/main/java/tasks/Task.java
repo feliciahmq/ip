@@ -13,23 +13,43 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public String markAsDone() {
-        if (isDone) {
-            return " This task is already marked as done!";
-        }
-        isDone = true;
-        return " Nice! I've marked this task as done:\n" + "  "
-                + this.toString();
+    public boolean isDone() {
+        return isDone;
     }
 
-    public String markAsNotDone() {
-        if (!isDone) {
-            return " This task is already marked as not done!";
+    public String getDescription() {
+        return description;
+    }
+
+    public void markAsDone() {
+        isDone = true;
+    }
+
+    public void markAsNotDone() {
+        isDone = false;
+    }
+
+    public String fileFormat() {
+        return "";
+    }
+
+    public static Task parseFormat(String format) {
+        if (format.isEmpty()) {
+            return null;
         }
 
-        isDone = false;
-        return " OK, I've marked this task as not done yet:\n" + "  "
-                + this.toString();
+        char type = format.charAt(0);
+
+        switch (type) {
+        case 'T':
+            return Todo.parseFormat(format);
+        case 'D':
+            return Deadline.parseFormat(format);
+        case 'E':
+            return Event.parseFormat(format);
+        default:
+            throw new IllegalArgumentException("Unknown task: " + type);
+        }
     }
 
     @Override
