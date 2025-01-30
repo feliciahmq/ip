@@ -2,6 +2,8 @@ package commands;
 
 import exceptions.ClaudiaException;
 import exceptions.EmptyListException;
+import misc.TaskList;
+import storage.Storage;
 import tasks.Task;
 
 import java.util.ArrayList;
@@ -10,7 +12,7 @@ public class ListCommand extends Command {
     private static final String LINE = "____________________________________________________________";
 
     @Override
-    public ArrayList<Task> execute(ArrayList<Task> tasks) throws ClaudiaException {
+    public TaskList execute(TaskList tasks, Storage storage) throws ClaudiaException {
         if (tasks.isEmpty()) {
             throw new EmptyListException();
         }
@@ -18,8 +20,10 @@ public class ListCommand extends Command {
         System.out.println(LINE);
         System.out.println(" Here are the tasks in your list:");
 
+
+
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.printf(" %d.%s%n", i + 1, tasks.get(i).toString());
+            System.out.printf(" %d.%s%n", i + 1, tasks.getTask(i).toString());
         }
 
         System.out.println(LINE);
@@ -27,4 +31,8 @@ public class ListCommand extends Command {
         return tasks;
     }
 
+    @Override
+    public boolean isExit() {
+        return false;
+    }
 }

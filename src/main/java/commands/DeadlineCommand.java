@@ -2,6 +2,8 @@ package commands;
 
 import exceptions.ClaudiaException;
 import exceptions.InvalidFormatException;
+import misc.TaskList;
+import storage.Storage;
 import tasks.Deadline;
 import tasks.Task;
 import tasks.Todo;
@@ -17,9 +19,10 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public ArrayList<Task> execute(ArrayList<Task> tasks) throws ClaudiaException {
+    public TaskList execute(TaskList tasks, Storage storage) throws ClaudiaException {
         Deadline deadline = getDeadline();
-        tasks.add(deadline);
+        tasks.addTask(deadline);
+        storage.save(tasks);
         System.out.println(LINE);
         System.out.println(" Got it. I've added this task:");
         System.out.println("  " + deadline.toString());
@@ -27,6 +30,11 @@ public class DeadlineCommand extends Command {
         System.out.println(LINE);
 
         return tasks;
+    }
+
+    @Override
+    public boolean isExit() {
+        return false;
     }
 
     private Deadline getDeadline() throws InvalidFormatException {
@@ -39,7 +47,7 @@ public class DeadlineCommand extends Command {
             throw new InvalidFormatException("Invalid deadline format. Use: deadline <task> /by <date>");
         }
 
-        Deadline deadline = new Deadline(deadlineInfo[0], deadlineInfo[1]);
+        Deadline deadline = new Deadline(deadlineInfo[0].trim(), deadlineInfo[1].trim());
         return deadline;
     }
 }

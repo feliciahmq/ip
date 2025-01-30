@@ -4,6 +4,8 @@ import exceptions.ClaudiaException;
 import exceptions.EmptyListException;
 import exceptions.InvalidFormatException;
 import exceptions.InvalidTaskNumberException;
+import misc.TaskList;
+import storage.Storage;
 import tasks.Task;
 
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public ArrayList<Task> execute(ArrayList<Task> tasks) throws ClaudiaException {
+    public TaskList execute(TaskList tasks, Storage storage) throws ClaudiaException {
         if (tasks.isEmpty()) {
             throw new EmptyListException();
         }
@@ -28,8 +30,9 @@ public class DeleteCommand extends Command {
                 throw new InvalidTaskNumberException(tasks.size());
             }
 
-            Task t = tasks.get(i);
-            tasks.remove(t);
+            Task t = tasks.getTask(i);
+            tasks.removeTask(i);
+            storage.save(tasks);
 
             System.out.println(LINE);
             System.out.println(" Noted. I've removed this task:");
@@ -41,5 +44,10 @@ public class DeleteCommand extends Command {
         }
 
         return tasks;
+    }
+
+    @Override
+    public boolean isExit() {
+        return false;
     }
 }

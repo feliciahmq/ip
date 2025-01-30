@@ -1,18 +1,17 @@
 import commands.*;
 import exceptions.MissingDescriptionException;
-import tasks.Task;
+import misc.TaskList;
+import storage.Storage;
 
 import exceptions.UnknownInputException;
 import exceptions.ClaudiaException;
 
-import tasks.Todo;
-
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Claudia {
     private static final String GREET = " Hello! I'm Claudia.\n What can I do for you?";
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private Storage storage;
+    private TaskList tasks;
 
     public enum CommandType {
         BYE,
@@ -34,21 +33,35 @@ public class Claudia {
         }
     }
 
-    public static void main(String[] args) {
+    public Claudia(String filePath) {
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (ClaudiaException e) {
+            tasks = new TaskList();
+        }
+    }
+
+    public void run() {
         print(GREET);
+        boolean isExit = false;
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
+        while (!isExit) {
             String input = scanner.nextLine().trim();
 
             try {
                 Command command = parseCommand(input); // returns specific command type
-                tasks = command.execute(tasks);
-
+                command.execute(tasks, storage);
+                isExit = command.isExit();
             } catch (ClaudiaException e) {
                 print("OOPS!!! " + e.getMessage()); // catch all custom exceptions here, then print message
             }
         }
+    }
+
+    public static void main(String[] args) {
+        new Claudia("data/claudia.txt").run();
     }
 
     private static void printLine() {
@@ -67,30 +80,30 @@ public class Claudia {
         CommandType command = CommandType.fromString(commands[0]); // enums
 
         switch (command) {
-            case BYE:
-                return new ByeCommand();
-            case LIST:
-                return new ListCommand();
-            case MARK:
-                checkMissingDescription(commands);
-                return new MarkCommand(commands[1]);
-            case UNMARK:
-                checkMissingDescription(commands);
-                return new UnmarkCommand(commands[1]);
-            case TODO:
-                checkMissingDescription(commands);
-                return new ToDoCommand(commands[1]);
-            case DEADLINE:
-                checkMissingDescription(commands);
-                return new DeadlineCommand(commands[1]);
-            case EVENT:
-                checkMissingDescription(commands);
-                return new EventCommand(commands[1]);
-            case DELETE:
-                checkMissingDescription(commands);
-                return new DeleteCommand(commands[1]);
-            default:
-                throw new UnknownInputException();
+        case BYE:
+            return new ByeCommand();
+        case LIST:
+            return new ListCommand();
+        case MARK:
+            checkMissingDescription(commands);
+            return new MarkCommand(commands[1]);
+        case UNMARK:
+            checkMissingDescription(commands);
+            return new UnmarkCommand(commands[1]);
+        case TODO:
+            checkMissingDescription(commands);
+            return new ToDoCommand(commands[1]);
+        case DEADLINE:
+            checkMissingDescription(commands);
+            return new DeadlineCommand(commands[1]);
+        case EVENT:
+            checkMissingDescription(commands);
+            return new EventCommand(commands[1]);
+        case DELETE:
+            checkMissingDescription(commands);
+            return new DeleteCommand(commands[1]);
+        default:
+            throw new UnknownInputException();
         }
     }
 
