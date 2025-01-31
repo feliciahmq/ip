@@ -1,5 +1,7 @@
 package tasks;
 
+import exceptions.InvalidFormatException;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -33,7 +35,7 @@ public class Task {
         return "";
     }
 
-    public static Task parseFormat(String format) {
+    public static Task parseFormat(String format) throws InvalidFormatException  {
         if (format.isEmpty()) {
             return null;
         }

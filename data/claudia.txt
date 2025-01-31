@@ -1,4 +1,4 @@
-T | 1 | read
-D | 0 | return | June 6th
-E | 0 | proj meeting | Aug 6th 2-4pm
-T | 1 | join
+T | 0 | hi
+D | 0 | pop | 1000-01-01 18:00
+E | 1 | kms | 1000-10-01 18:00 | 1000-01-01 18:00
+E | 0 | ooo | 1000-12-01 19:00 | 1200-01-01 19:00

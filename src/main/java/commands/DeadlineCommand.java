@@ -3,12 +3,9 @@ package commands;
 import exceptions.ClaudiaException;
 import exceptions.InvalidFormatException;
 import misc.TaskList;
+import parser.DateTimeParser;
 import storage.Storage;
 import tasks.Deadline;
-import tasks.Task;
-import tasks.Todo;
-
-import java.util.ArrayList;
 
 public class DeadlineCommand extends Command {
     private static final String LINE = "____________________________________________________________";
@@ -37,6 +34,7 @@ public class DeadlineCommand extends Command {
         return false;
     }
 
+    // parse line from CLI
     private Deadline getDeadline() throws InvalidFormatException {
         if (!description.contains("/by")) {
             throw new InvalidFormatException("Invalid deadline format. Use: deadline <task> /by <date>");
@@ -47,7 +45,7 @@ public class DeadlineCommand extends Command {
             throw new InvalidFormatException("Invalid deadline format. Use: deadline <task> /by <date>");
         }
 
-        Deadline deadline = new Deadline(deadlineInfo[0].trim(), deadlineInfo[1].trim());
+        Deadline deadline = new Deadline(deadlineInfo[0].trim(), DateTimeParser.parseDateTime(deadlineInfo[1].trim()));
         return deadline;
     }
 }

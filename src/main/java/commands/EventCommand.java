@@ -3,11 +3,9 @@ package commands;
 import exceptions.ClaudiaException;
 import exceptions.InvalidFormatException;
 import misc.TaskList;
+import parser.DateTimeParser;
 import storage.Storage;
 import tasks.Event;
-import tasks.Task;
-
-import java.util.ArrayList;
 
 public class EventCommand extends Command {
     private static final String LINE = "____________________________________________________________";
@@ -52,6 +50,6 @@ public class EventCommand extends Command {
             throw new InvalidFormatException("Invalid event format. Use: event <task> /from <start> /to <end>");
         }
 
-        return new Event(eventInfo[0].trim(), dateTime[0].trim(), dateTime[1].trim());
+        return new Event(eventInfo[0].trim(), DateTimeParser.parseDateTime(dateTime[0].trim()), DateTimeParser.parseDateTime(dateTime[1].trim()));
     }
 }

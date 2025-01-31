@@ -13,14 +13,12 @@ public class ListCommand extends Command {
 
     @Override
     public TaskList execute(TaskList tasks, Storage storage) throws ClaudiaException {
-        if (tasks.isEmpty()) {
+        if (storage.load().isEmpty()) {
             throw new EmptyListException();
         }
 
         System.out.println(LINE);
         System.out.println(" Here are the tasks in your list:");
-
-
 
         for (int i = 0; i < tasks.size(); i++) {
             System.out.printf(" %d.%s%n", i + 1, tasks.getTask(i).toString());
