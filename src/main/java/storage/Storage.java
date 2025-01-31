@@ -45,7 +45,11 @@ public class Storage {
 
         try (Scanner scanner = new Scanner(file)){
             while (scanner.hasNext()) {
-                Task t = Task.parseFormat(scanner.nextLine()); // general Task
+                String line = scanner.nextLine().trim();
+                if (line.isEmpty()) {
+                    continue;
+                }
+                Task t = Task.parseFormat(line); // general Task
                 if (t != null) {
                     tasks.add(t);
                 }
