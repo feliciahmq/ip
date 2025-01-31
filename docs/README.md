@@ -1,8 +1,8 @@
-# Claudia User Guide
+# claudia.ui.Claudia User Guide
 
-![Claudia Chatbot](./Claudia_Chatbot.png)
+![claudia.ui.Claudia Chatbot](./Claudia_Chatbot.png)
 
-Claudia is a Personal Assistant Chatbot to help the user keep track of their tasks using the *Command Line Interface (CLI)*.
+claudia.ui.Claudia is a Personal Assistant Chatbot to help the user keep track of their claudia.task using the *Command Line Interface (CLI)*.
 
 ## Table of Contents
 
@@ -10,16 +10,16 @@ Claudia is a Personal Assistant Chatbot to help the user keep track of their tas
     - [Adding ToDo](#adding-todo)
     - [Adding Deadline](#adding-deadline)
     - [Adding Event](#adding-todo)
-    - [Listing all tasks](#listing-all-tasks)
-    - [Mark/Unmark a task](#markunmark-a-task)
-    - [Delete a task](#delete-a-task)
-    - [Exit Claudia Chatbot](#exit-claudia-chatbot)
+    - [Listing all claudia.task](#listing-all-tasks)
+    - [Mark/Unmark a claudia.task](#markunmark-a-task)
+    - [Delete a claudia.task](#delete-a-task)
+    - [Exit claudia.ui.Claudia Chatbot](#exit-claudia-chatbot)
 
 ## Features
 
 ### Adding ToDo
 
-ToDo: task without any date/time attached to it
+ToDo: claudia.task without any date/time attached to it
 
 **Command**: `todo DESCRIPTION`
 
@@ -27,14 +27,14 @@ ToDo: task without any date/time attached to it
 
 **Expected Output**:
 ```
-Got it. I've added this task:
+Got it. I've added this claudia.task:
  [T][ ] borrow book
-Now you have 1 tasks in the list.
+Now you have 1 claudia.task in the list.
 ```
 
 ### Adding Deadline
 
-Deadline: task that needs to be done before a specific date/time
+Deadline: claudia.task that needs to be done before a specific date/time
 
 **Command**: `deadline DESCRIPTION /by DATE`
 
@@ -42,14 +42,14 @@ Deadline: task that needs to be done before a specific date/time
 
 **Expected Output**:
 ```
-Got it. I've added this task:
+Got it. I've added this claudia.task:
  [D][ ] return book (by: Sunday)
-Now you have 2 tasks in the list.
+Now you have 2 claudia.task in the list.
 ```
 
 ### Adding Event
 
-Event: task that starts at a specific date/time and ends at a specific date/time
+Event: claudia.task that starts at a specific date/time and ends at a specific date/time
 
 **Command**: `event DESCRIPTION /from DATE /to DATE`
 
@@ -57,28 +57,28 @@ Event: task that starts at a specific date/time and ends at a specific date/time
 
 **Expected Output**:
 ```
-Got it. I've added this task:
+Got it. I've added this claudia.task:
  [E][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 3 tasks in the list.
+Now you have 3 claudia.task in the list.
 ```
 
-### Listing all tasks
+### Listing all claudia.task
 
-Displays a list of all the user's tasks.
+Displays a list of all the user's claudia.task.
 
 **Command**: `list`
 
 **Expected Output**:
 ```
-Here are the tasks in your list:
+Here are the claudia.task in your list:
 1.[T][ ] borrow book
 2.[D][ ] return book (by: Sunday)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 ```
 
-### Mark/Unmark a task
+### Mark/Unmark a claudia.task
 
-**Mark** tasks as *done*.
+**Mark** claudia.task as *done*.
 
 **Command**: `mark ID`
 
@@ -86,7 +86,7 @@ Here are the tasks in your list:
 
 **Expected Output**:
 ```
-Nice! I've marked this task as done:
+Nice! I've marked this claudia.task as done:
  [D][X] return book (by: Sunday)
 ```
 
@@ -98,13 +98,13 @@ Nice! I've marked this task as done:
 
 **Expected Output**:
 ```
-OK, I've marked this task as not done yet:
+OK, I've marked this claudia.task as not done yet:
  [D][ ] return book (by: Sunday)
 ```
 
-### Delete a task
+### Delete a claudia.task
 
-Delete a task from the list.
+Delete a claudia.task from the list.
 
 **Command**: `delete ID`
 
@@ -112,14 +112,14 @@ Delete a task from the list.
 
 **Expected Output**:
 ```
-Noted. I've removed this task:
+Noted. I've removed this claudia.task:
  [E][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 2 tasks in the list.
+Now you have 2 claudia.task in the list.
 ```
 
-### Exit Claudia Chatbot
+### Exit claudia.ui.Claudia Chatbot
 
-Terminates Claudia Chatbot session.
+Terminates claudia.ui.Claudia Chatbot session.
 
 **Command**: `bye`
 
