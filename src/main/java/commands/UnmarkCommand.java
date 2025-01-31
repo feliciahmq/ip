@@ -6,6 +6,7 @@ import exceptions.InvalidTaskNumberException;
 import misc.TaskList;
 import storage.Storage;
 import tasks.Task;
+import ui.Ui;
 
 import java.util.ArrayList;
 
@@ -18,7 +19,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public TaskList execute(TaskList tasks, Storage storage) throws ClaudiaException {
+    public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws ClaudiaException {
         try {
             int i = Integer.parseInt(index) - 1; // zero-based
             if (i < 0 || i >= tasks.size()) {
@@ -28,12 +29,7 @@ public class UnmarkCommand extends Command {
             Task t = tasks.getTask(i);
             t.markAsNotDone();
             storage.save(tasks);
-
-            System.out.println(LINE);
-            String success = " OK, I've marked this task as not done yet:\n" + "  "
-                    + t.toString();
-            System.out.println(success);
-            System.out.println(LINE);
+            ui.showUnmark(t);
         } catch (NumberFormatException e) {
             throw new InvalidFormatException("Invalid number.");
         }

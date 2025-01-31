@@ -7,6 +7,7 @@ import exceptions.InvalidTaskNumberException;
 import misc.TaskList;
 import storage.Storage;
 import tasks.Task;
+import ui.Ui;
 
 import java.util.ArrayList;
 
@@ -19,7 +20,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public TaskList execute(TaskList tasks, Storage storage) throws ClaudiaException {
+    public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws ClaudiaException {
         if (tasks.isEmpty()) {
             throw new EmptyListException();
         }
@@ -34,11 +35,8 @@ public class DeleteCommand extends Command {
             tasks.removeTask(i);
             storage.save(tasks);
 
-            System.out.println(LINE);
-            System.out.println(" Noted. I've removed this task:");
-            System.out.println("  " + t.toString());
-            System.out.printf(" Now you have %d tasks in the list.\n", tasks.size());
-            System.out.println(LINE);
+            ui.showDelete(tasks, t);
+
         } catch (NumberFormatException e) {
             throw new InvalidFormatException("Invalid number.");
         }

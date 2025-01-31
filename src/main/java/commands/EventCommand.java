@@ -6,9 +6,9 @@ import misc.TaskList;
 import parser.DateTimeParser;
 import storage.Storage;
 import tasks.Event;
+import ui.Ui;
 
 public class EventCommand extends Command {
-    private static final String LINE = "____________________________________________________________";
     public final String description;
 
     public EventCommand(String description) {
@@ -16,16 +16,11 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public TaskList execute(TaskList tasks, Storage storage) throws ClaudiaException {
+    public TaskList execute(TaskList tasks, Ui ui,Storage storage) throws ClaudiaException {
         Event event = getEvent();
         tasks.addTask(event);
         storage.save(tasks);
-        System.out.println(LINE);
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("  " + event.toString());
-        System.out.printf(" Now you have %d tasks in the list.\n", tasks.size());
-        System.out.println(LINE);
-
+        ui.showEvent(tasks, event);
         return tasks;
     }
 
