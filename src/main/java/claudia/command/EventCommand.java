@@ -2,10 +2,12 @@ package claudia.command;
 
 import claudia.exception.ClaudiaException;
 import claudia.exception.InvalidFormatException;
-import claudia.misc.TaskList;
+
 import claudia.parser.DateTimeParser;
-import claudia.storage.Storage;
 import claudia.task.Event;
+
+import claudia.misc.TaskList;
+import claudia.storage.Storage;
 import claudia.ui.Ui;
 
 public class EventCommand extends Command {

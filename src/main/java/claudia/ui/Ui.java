@@ -1,10 +1,10 @@
 package claudia.ui;
 
 import claudia.misc.TaskList;
-import claudia.task.Deadline;
-import claudia.task.Event;
 import claudia.task.Task;
 import claudia.task.Todo;
+import claudia.task.Deadline;
+import claudia.task.Event;
 
 import java.util.Scanner;
 

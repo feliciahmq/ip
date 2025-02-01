@@ -2,10 +2,12 @@ package claudia.command;
 
 import claudia.exception.ClaudiaException;
 import claudia.exception.InvalidFormatException;
-import claudia.misc.TaskList;
+
 import claudia.parser.DateTimeParser;
-import claudia.storage.Storage;
 import claudia.task.Deadline;
+
+import claudia.misc.TaskList;
+import claudia.storage.Storage;
 import claudia.ui.Ui;
 
 public class DeadlineCommand extends Command {
