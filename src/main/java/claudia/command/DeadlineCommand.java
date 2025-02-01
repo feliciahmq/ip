@@ -10,13 +10,32 @@ import claudia.misc.TaskList;
 import claudia.storage.Storage;
 import claudia.ui.Ui;
 
+/**
+ * Represents a command to add a Deadline task.
+ */
 public class DeadlineCommand extends Command {
     public final String description;
 
+    /**
+     * Constructs a DeadlineCommand with the specified description.
+     *
+     * @param description The user input describing the Deadline task.
+     */
     public DeadlineCommand(String description) {
         this.description = description;
     }
 
+    /**
+     * Executes DeadlineCommand by creating a Deadline task,
+     * adding it to the task list, saving to storage, and displaying it
+     * in the user interface.
+     *
+     * @param tasks The current list of tasks.
+     * @param ui The Ui handler for user interactions.
+     * @param storage The storage handler for saving or loading tasks.
+     * @return The updated task list after adding the deadline.
+     * @throws ClaudiaException If an error occurs during execution.
+     */
     @Override
     public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws ClaudiaException {
         Deadline deadline = getDeadline();
@@ -26,12 +45,22 @@ public class DeadlineCommand extends Command {
         return tasks;
     }
 
+    /**
+     * Indicates DeadlineCommand will not exit Claudia chatbot.
+     *
+     * @return <code>false</code> as DeadlineCommand will not terminate Claudia chatbot.
+     */
     @Override
     public boolean isExit() {
         return false;
     }
 
-    // parse line from CLI
+    /**
+     * Parses the user input to create a Deadline task.
+     *
+     * @return A Deadline task created from the user input.
+     * @throws InvalidFormatException If the input format is incorrect.
+     */
     private Deadline getDeadline() throws InvalidFormatException {
         if (!description.contains("/by")) {
             throw new InvalidFormatException("Invalid deadline format. Use: deadline <task> /by <date>");

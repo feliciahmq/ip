@@ -12,14 +12,26 @@ import claudia.task.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles loading and saving of tasks from and to a file.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a Storage instance with the specified file path.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    // overwrite file
+    /**
+     * Saves the given new or updated task list to a file, overwriting any existing data.
+     *
+     * @param tasks The task list to be saved.
+     */
     public void save(TaskList tasks) {
         File folder = new File("./data");
 
@@ -36,6 +48,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file into an ArrayList, to be used when initiating a new TaskList.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws ClaudiaException If file is not found or an error occurs when parsing the file.
+     */
     public ArrayList<Task> load() throws ClaudiaException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);

@@ -14,7 +14,14 @@ import claudia.exception.ClaudiaException;
 import claudia.exception.MissingDescriptionException;
 import claudia.exception.UnknownInputException;
 
+/**
+ * Parses user input and returns the corresponding command.
+ */
 public class Parser {
+
+    /**
+     * Enum representing the possible command types.
+     */
     public enum CommandType {
         BYE,
         LIST,
@@ -26,6 +33,12 @@ public class Parser {
         DELETE,
         UNKNOWN;
 
+        /**
+         * Converts a string into a CommandType.
+         *
+         * @param command The command string.
+         * @return The valid CommandType or Unknown if invalid.
+         */
         public static CommandType fromString(String command) {
             try {
                 return CommandType.valueOf(command.toUpperCase());
@@ -35,9 +48,16 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses user input and returns the corresponding Command.
+     *
+     * @param input The user input string.
+     * @return A Command object representing the parsed command.
+     * @throws ClaudiaException If an error occurs during parsing.
+     */
     public static Command parse(String input) throws ClaudiaException {
-        String[] commands = input.split(" ", 2); // at most 2 parts
-        CommandType command = CommandType.fromString(commands[0]); // enums
+        String[] commands = input.split(" ", 2);
+        CommandType command = CommandType.fromString(commands[0]);
 
         switch (command) {
         case BYE:
@@ -67,6 +87,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if a required command description is missing and
+     * throws and exception if missing.
+     *
+     * @param commands The command input split into parts.
+     * @throws ClaudiaException If the description is missing.
+     */
     private static void checkMissingDescription(String[] commands) throws ClaudiaException {
         // missing description, true if missing
         if (commands.length < 2 || commands[1].trim().isEmpty()) {

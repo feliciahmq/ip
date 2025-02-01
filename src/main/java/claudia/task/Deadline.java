@@ -5,20 +5,39 @@ import claudia.parser.DateTimeParser;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents a Deadline task with a description and a due date.
+ */
 public class Deadline extends Task {
     protected LocalDateTime by;
 
+    /**
+     * Constructs a Deadline task with the specified description and due date.
+     *
+     * @param description The description of the Deadline task.
+     * @param by The due date of the Deadline task.
+     */
     public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
 
+    /**
+     * Returns a formatted string of Deadline task to save to storage file.
+     *
+     * @return The file format representation of the Deadline task.
+     */
     public String fileFormat() {
         return String.format("D | %s | %s | %s", super.isDone() ? "1" : "0",
                 super.getDescription(), DateTimeParser.formatForStorage(by));
     }
 
-    // parse line from claudia.txt file
+    /**
+     * Parses a formatted string from storage file into a Deadline object.
+     *
+     * @param format The formatted string representation of the Deadline task.
+     * @return A Deadline task.
+     */
     public static Deadline parseFormat(String format) throws InvalidFormatException {
         String[] info = format.split("\\|");
         boolean isDone = info[1].trim().equals("1");
@@ -33,6 +52,11 @@ public class Deadline extends Task {
         return deadline;
     }
 
+    /**
+     * Returns a string representation of the Deadline task.
+     *
+     * @return The formatted string representing the Deadline task.
+     */
     @Override
     public String toString() {
         return String.format("[D]%s (by: %s)",
