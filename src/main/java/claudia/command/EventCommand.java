@@ -2,10 +2,12 @@ package claudia.command;
 
 import claudia.exception.ClaudiaException;
 import claudia.exception.InvalidFormatException;
-import claudia.misc.TaskList;
+
 import claudia.parser.DateTimeParser;
-import claudia.storage.Storage;
 import claudia.task.Event;
+
+import claudia.misc.TaskList;
+import claudia.storage.Storage;
 import claudia.ui.Ui;
 
 public class EventCommand extends Command {
@@ -45,6 +47,7 @@ public class EventCommand extends Command {
             throw new InvalidFormatException("Invalid event format. Use: event <task> /from <start> /to <end>");
         }
 
-        return new Event(eventInfo[0].trim(), DateTimeParser.parseDateTime(dateTime[0].trim()), DateTimeParser.parseDateTime(dateTime[1].trim()));
+        return new Event(eventInfo[0].trim(), DateTimeParser.parseDateTime(dateTime[0].trim()),
+                DateTimeParser.parseDateTime(dateTime[1].trim()));
     }
 }

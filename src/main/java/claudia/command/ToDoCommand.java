@@ -1,9 +1,11 @@
 package claudia.command;
 
 import claudia.exception.ClaudiaException;
+
+import claudia.task.Todo;
+
 import claudia.misc.TaskList;
 import claudia.storage.Storage;
-import claudia.task.Todo;
 import claudia.ui.Ui;
 
 public class ToDoCommand extends Command {
