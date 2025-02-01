@@ -10,7 +10,7 @@ import claudia.task.Task;
 import claudia.ui.Ui;
 
 public class DeleteCommand extends Command {
-    public final String index;
+    private final String index;
 
     public DeleteCommand(String index) {
         this.index = index;

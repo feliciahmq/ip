@@ -9,7 +9,7 @@ import claudia.task.Deadline;
 import claudia.ui.Ui;
 
 public class DeadlineCommand extends Command {
-    public final String description;
+    private final String description;
 
     public DeadlineCommand(String description) {
         this.description = description;

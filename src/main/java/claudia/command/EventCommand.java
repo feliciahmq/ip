@@ -9,7 +9,7 @@ import claudia.task.Event;
 import claudia.ui.Ui;
 
 public class EventCommand extends Command {
-    public final String description;
+    private final String description;
 
     public EventCommand(String description) {
         this.description = description;

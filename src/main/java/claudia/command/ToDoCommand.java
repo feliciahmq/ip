@@ -7,7 +7,7 @@ import claudia.task.Todo;
 import claudia.ui.Ui;
 
 public class ToDoCommand extends Command {
-    public final String description;
+    private final String description;
 
     public ToDoCommand(String description) {
         this.description = description;

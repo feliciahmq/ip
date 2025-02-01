@@ -9,6 +9,8 @@ import claudia.command.ListCommand;
 import claudia.command.MarkCommand;
 import claudia.command.UnmarkCommand;
 import claudia.command.DeleteCommand;
+import claudia.command.FindCommand;
+
 import claudia.exception.ClaudiaException;
 import claudia.exception.MissingDescriptionException;
 import claudia.exception.UnknownInputException;
@@ -23,6 +25,7 @@ public class Parser {
         DEADLINE,
         EVENT,
         DELETE,
+        FIND,
         UNKNOWN;
 
         public static CommandType fromString(String command) {
@@ -61,6 +64,9 @@ public class Parser {
         case DELETE:
             checkMissingDescription(commands);
             return new DeleteCommand(commands[1]);
+        case FIND:
+            checkMissingDescription(commands);
+            return new FindCommand(commands[1]);
         default:
             throw new UnknownInputException();
         }
