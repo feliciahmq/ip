@@ -4,8 +4,20 @@ import claudia.misc.TaskList;
 import claudia.storage.Storage;
 import claudia.ui.Ui;
 
+/**
+ * Represents the command to exit Claudia chatbot.
+ */
 public class ByeCommand extends Command {
 
+    /**
+     * Executes ByeCommand, displaying a goodbye message and
+     * terminating Claudia chatbot.
+     *
+     * @param tasks The current list of tasks.
+     * @param ui The Ui handler for user interactions.
+     * @param storage The storage handler for saving or loading tasks.
+     * @return The updated task list (unchanged).
+     */
     @Override
     public TaskList execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showGoodbye();
@@ -13,6 +25,11 @@ public class ByeCommand extends Command {
         return tasks;
     }
 
+    /**
+     * Indicates ByeCommand will exit Claudia chatbot.
+     *
+     * @return <code>true</code> as bye command terminates Claudia chatbot.
+     */
     @Override
     public boolean isExit() {
         return true;

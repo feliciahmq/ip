@@ -8,13 +8,32 @@ import claudia.storage.Storage;
 import claudia.task.Event;
 import claudia.ui.Ui;
 
+/**
+ * Represents a command to add an Event task.
+ */
 public class EventCommand extends Command {
     public final String description;
 
+    /**
+     * Constructs a EventCommand with the specified description.
+     *
+     * @param description The user input describing the Event task.
+     */
     public EventCommand(String description) {
         this.description = description;
     }
 
+    /**
+     * Executes EventCommand by creating a Event task,
+     * adding it to the task list, saving to storage, and displaying it
+     * in the user interface.
+     *
+     * @param tasks The current list of tasks.
+     * @param ui The Ui handler for user interactions.
+     * @param storage The storage handler for saving or loading tasks.
+     * @return The updated task list after adding the event.
+     * @throws ClaudiaException If an error occurs during execution.
+     */
     @Override
     public TaskList execute(TaskList tasks, Ui ui,Storage storage) throws ClaudiaException {
         Event event = getEvent();
@@ -24,11 +43,22 @@ public class EventCommand extends Command {
         return tasks;
     }
 
+    /**
+     * Indicates EventCommand will not exit Claudia chatbot.
+     *
+     * @return <code>false</code> as EventCommand will not terminate Claudia chatbot.
+     */
     @Override
     public boolean isExit() {
         return false;
     }
 
+    /**
+     * Parses the user input to create an Event task.
+     *
+     * @return An Event task created from the user input.
+     * @throws InvalidFormatException If the input format is incorrect.
+     */
     private Event getEvent() throws InvalidFormatException {
         // missing /from or /to
         if (!description.contains("/from") || !description.contains("/to")) {

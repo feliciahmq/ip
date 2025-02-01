@@ -8,13 +8,31 @@ import claudia.storage.Storage;
 import claudia.task.Task;
 import claudia.ui.Ui;
 
+/**
+ * Represents a command to mark a task as not done.
+ */
 public class UnmarkCommand extends Command {
     private final String index;
 
+    /**
+     * Constructs a UnmarkCommand with the specified task index.
+     *
+     * @param index The index of the task to be marked as not done, as a string.
+     */
     public UnmarkCommand(String index) {
         this.index = index;
     }
 
+    /**
+     * Executes UnmarkCommand by marking the specified task as not done,
+     * updating storage, and displaying it in the user interface.
+     *
+     * @param tasks The current list of tasks.
+     * @param ui The Ui handler for user interactions.
+     * @param storage The storage handler for saving or loading tasks.
+     * @return The updated task list after marking the task as not done.
+     * @throws ClaudiaException If the index is invalid or the number format is incorrect.
+     */
     @Override
     public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws ClaudiaException {
         try {
@@ -34,6 +52,11 @@ public class UnmarkCommand extends Command {
         return tasks;
     }
 
+    /**
+     * Indicates MarkCommand will not exit Claudia chatbot.
+     *
+     * @return <code>false</code> as MarkCommand will not terminate Claudia chatbot.
+     */
     @Override
     public boolean isExit() {
         return false;
