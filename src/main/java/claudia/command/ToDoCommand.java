@@ -12,7 +12,7 @@ import claudia.ui.Ui;
  * Represents a command to add a ToDo task.
  */
 public class ToDoCommand extends Command {
-    public final String description;
+    private final String description;
 
     /**
      * Constructs a ToDoCommand with the specified description.

@@ -14,7 +14,7 @@ import claudia.ui.Ui;
  * Represents a command to add an Event task.
  */
 public class EventCommand extends Command {
-    public final String description;
+    private final String description;
 
     /**
      * Constructs a EventCommand with the specified description.

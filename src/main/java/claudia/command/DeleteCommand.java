@@ -15,7 +15,7 @@ import claudia.ui.Ui;
  * Represents a command to delete a task from the task list.
  */
 public class DeleteCommand extends Command {
-    public final String index;
+    private final String index;
 
     /**
      * Constructs a DeleteCommand with the specified task index.

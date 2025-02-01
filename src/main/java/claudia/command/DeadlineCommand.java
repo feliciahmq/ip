@@ -14,7 +14,7 @@ import claudia.ui.Ui;
  * Represents a command to add a Deadline task.
  */
 public class DeadlineCommand extends Command {
-    public final String description;
+    private final String description;
 
     /**
      * Constructs a DeadlineCommand with the specified description.

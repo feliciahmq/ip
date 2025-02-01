@@ -152,4 +152,15 @@ public class Ui {
                 + task.toString();
         System.out.println(success);
     }
+
+    public void showMatchingTasks(TaskList matchingTasks) {
+        if (matchingTasks.isEmpty()) {
+            this.showError("No matching tasks found.");
+        } else {
+            System.out.println(" Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.printf(" %d.%s%n", i + 1, matchingTasks.getTask(i).toString());
+            }
+        }
+    }
 }
