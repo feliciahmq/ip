@@ -17,7 +17,8 @@ public class Event extends Task {
 
     public String fileFormat() {
         return String.format("E | %s | %s | %s | %s", super.isDone() ? "1" : "0",
-                super.getDescription(), DateTimeParser.formatForStorage(from), DateTimeParser.formatForStorage(to));
+                super.getDescription(), DateTimeParser.formatForStorage(from),
+                DateTimeParser.formatForStorage(to));
     }
 
     public static Event parseFormat(String format) throws InvalidFormatException {

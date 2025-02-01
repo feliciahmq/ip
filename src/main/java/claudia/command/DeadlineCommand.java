@@ -40,7 +40,8 @@ public class DeadlineCommand extends Command {
             throw new InvalidFormatException("Invalid deadline format. Use: deadline <task> /by <date>");
         }
 
-        Deadline deadline = new Deadline(deadlineInfo[0].trim(), DateTimeParser.parseDateTime(deadlineInfo[1].trim()));
+        Deadline deadline = new Deadline(deadlineInfo[0].trim(),
+                DateTimeParser.parseDateTime(deadlineInfo[1].trim()));
         return deadline;
     }
 }

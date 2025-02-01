@@ -45,6 +45,7 @@ public class EventCommand extends Command {
             throw new InvalidFormatException("Invalid event format. Use: event <task> /from <start> /to <end>");
         }
 
-        return new Event(eventInfo[0].trim(), DateTimeParser.parseDateTime(dateTime[0].trim()), DateTimeParser.parseDateTime(dateTime[1].trim()));
+        return new Event(eventInfo[0].trim(), DateTimeParser.parseDateTime(dateTime[0].trim()),
+                DateTimeParser.parseDateTime(dateTime[1].trim()));
     }
 }
