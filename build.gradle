@@ -29,7 +29,7 @@ test {
 }
 
 application {
-    mainClass.set("claudia.ui.Claudia")
+    mainClass.set("claudia.gui.Launcher")
 }
 
 shadowJar {

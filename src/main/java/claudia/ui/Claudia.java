@@ -15,6 +15,8 @@ public class Claudia {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private static final String DEFAULT_FILE_PATH = "claudia/claudia.txt";
+    private String commandType;
 
     /**
      * Constructs a Friday chatbot, initializing user interface, storage and TaskList.
@@ -35,6 +37,13 @@ public class Claudia {
     }
 
     /**
+     * Overloaded constructor with no arguments
+     */
+    public Claudia() {
+        this(DEFAULT_FILE_PATH);
+    }
+
+    /**
      * Runs Claudia chatbot, reading and executing user command
      * till exit command is given by user.
      */
@@ -48,12 +57,26 @@ public class Claudia {
                 ui.showLine();
                 Command command = Parser.parse(fullCommand); // returns specific claudia.command type
                 command.execute(tasks, ui, storage);
+                commandType = command.getClass().getSimpleName();
                 isExit = command.isExit();
             } catch (ClaudiaException e) {
                 ui.showError(e.getMessage()); // catch all custom claudia.exceptions here, then print message
             } finally {
                 ui.showLine();
             }
+        }
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            TaskList response = command.execute(tasks, ui, storage);
+            return response.toString();
+        } catch (ClaudiaException e) {
+            return "Error: " + e.getMessage();
         }
     }
 
