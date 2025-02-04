@@ -1,16 +1,15 @@
 package claudia.storage;
 
-import claudia.exception.ClaudiaException;
-import java.io.IOException;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
-
-import claudia.misc.TaskList;
-import claudia.task.Task;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import claudia.exception.ClaudiaException;
+import claudia.misc.TaskList;
+import claudia.task.Task;
 
 /**
  * Handles loading and saving of tasks from and to a file.
@@ -62,7 +61,7 @@ public class Storage {
             return tasks; // empty tasks
         }
 
-        try (Scanner scanner = new Scanner(file)){
+        try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNext()) {
                 String line = scanner.nextLine().trim();
                 if (line.isEmpty()) {

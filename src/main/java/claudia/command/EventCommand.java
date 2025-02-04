@@ -1,13 +1,12 @@
 package claudia.command;
 
+
 import claudia.exception.ClaudiaException;
 import claudia.exception.InvalidFormatException;
-
-import claudia.parser.DateTimeParser;
-import claudia.task.Event;
-
 import claudia.misc.TaskList;
+import claudia.parser.DateTimeParser;
 import claudia.storage.Storage;
+import claudia.task.Event;
 import claudia.ui.Ui;
 
 /**
@@ -37,7 +36,7 @@ public class EventCommand extends Command {
      * @throws ClaudiaException If an error occurs during execution.
      */
     @Override
-    public TaskList execute(TaskList tasks, Ui ui,Storage storage) throws ClaudiaException {
+    public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws ClaudiaException {
         Event event = getEvent();
         tasks.addTask(event);
         storage.save(tasks);

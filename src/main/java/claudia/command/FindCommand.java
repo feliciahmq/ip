@@ -1,16 +1,14 @@
 package claudia.command;
 
-import claudia.exception.ClaudiaException;
-
-import claudia.misc.TaskList;
-
-import claudia.storage.Storage;
-import claudia.task.Task;
-import claudia.ui.Ui;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
+import claudia.exception.ClaudiaException;
+import claudia.misc.TaskList;
+import claudia.storage.Storage;
+import claudia.task.Task;
+import claudia.ui.Ui;
 
 /**
  * Represents a command to find tasks in the task list
