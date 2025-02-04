@@ -1,9 +1,9 @@
 package claudia.task;
 
+import java.time.LocalDateTime;
+
 import claudia.exception.InvalidFormatException;
 import claudia.parser.DateTimeParser;
-
-import java.time.LocalDateTime;
 
 /**
  * Represents a Deadline task with a description and a due date.

@@ -14,6 +14,3 @@ public class UnknownInputException extends ClaudiaException {
         super("I don't know what that means :(");
     }
 }
-
-// empty input
-// claudia.command unknown -> use enums

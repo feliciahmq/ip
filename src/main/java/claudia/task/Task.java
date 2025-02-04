@@ -81,7 +81,7 @@ public class Task {
      * @return A specific Task subclass.
      * @throws InvalidFormatException If task type is unknown.
      */
-    public static Task parseFormat(String format) throws InvalidFormatException  {
+    public static Task parseFormat(String format) throws InvalidFormatException {
         if (format.isEmpty()) {
             return null;
         }

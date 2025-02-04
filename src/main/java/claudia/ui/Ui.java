@@ -1,12 +1,12 @@
 package claudia.ui;
 
+import java.util.Scanner;
+
 import claudia.misc.TaskList;
-import claudia.task.Task;
-import claudia.task.Todo;
 import claudia.task.Deadline;
 import claudia.task.Event;
-
-import java.util.Scanner;
+import claudia.task.Task;
+import claudia.task.Todo;
 
 /**
  * Handles messages displayed by chatbot.
@@ -153,6 +153,13 @@ public class Ui {
         System.out.println(success);
     }
 
+    /**
+     * Displays the list of tasks that match a given search criteria.
+     * If no tasks are found, an error message is shown.
+     *
+     * @param matchingTasks The list of tasks that match the search criteria.
+     *                      If the list is empty, an error message is displayed.
+     */
     public void showMatchingTasks(TaskList matchingTasks) {
         if (matchingTasks.isEmpty()) {
             this.showError("No matching tasks found.");

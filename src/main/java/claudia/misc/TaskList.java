@@ -1,7 +1,8 @@
 package claudia.misc;
 
-import claudia.task.Task;
 import java.util.ArrayList;
+
+import claudia.task.Task;
 
 /**
  * Manages a list of tasks.
