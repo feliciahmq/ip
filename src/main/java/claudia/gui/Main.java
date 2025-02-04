@@ -2,6 +2,7 @@ package claudia.gui;
 
 import java.io.IOException;
 
+import claudia.exception.ClaudiaException;
 import claudia.ui.Claudia;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Claudia using FXML.
  */
 public class Main extends Application {
 
@@ -25,7 +26,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            fxmlLoader.<MainWindow>getController().setClaudia(claudia);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setClaudia(claudia);  // inject the Claudia instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

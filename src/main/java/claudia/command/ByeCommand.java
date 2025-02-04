@@ -3,6 +3,7 @@ package claudia.command;
 import claudia.misc.TaskList;
 import claudia.storage.Storage;
 import claudia.ui.Ui;
+import javafx.application.Platform;
 
 /**
  * Represents the command to exit Claudia chatbot.
@@ -19,10 +20,8 @@ public class ByeCommand extends Command {
      * @return The updated task list (unchanged).
      */
     @Override
-    public TaskList execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showGoodbye();
-        System.exit(0); // terminate program
-        return tasks;
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showGoodbye();
     }
 
     /**

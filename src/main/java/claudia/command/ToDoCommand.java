@@ -34,12 +34,11 @@ public class ToDoCommand extends Command {
      * @throws ClaudiaException If an error occurs during execution.
      */
     @Override
-    public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws ClaudiaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ClaudiaException {
         Todo todo = new Todo(description.trim());
         tasks.addTask(todo);
         storage.save(tasks);
-        ui.showToDo(tasks, todo);
-        return tasks;
+        return ui.showToDo(tasks, todo);
     }
 
     /**

@@ -15,8 +15,7 @@ public class Claudia {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private static final String DEFAULT_FILE_PATH = "claudia/claudia.txt";
-    private String commandType;
+    private static final String DEFAULT_FILE_PATH = "data/claudia.txt";
 
     /**
      * Constructs a Friday chatbot, initializing user interface, storage and TaskList.
@@ -27,13 +26,7 @@ public class Claudia {
     public Claudia(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-
-        try {
-            tasks = new TaskList(storage.load());
-        } catch (ClaudiaException e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
-        }
+        tasks = new TaskList();
     }
 
     /**
@@ -48,23 +41,23 @@ public class Claudia {
      * till exit command is given by user.
      */
     public void run() {
-        ui.showWelcome();
         boolean isExit = false;
+        tasks = new TaskList(storage.load());
 
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                ui.showLine();
                 Command command = Parser.parse(fullCommand); // returns specific claudia.command type
                 command.execute(tasks, ui, storage);
-                commandType = command.getClass().getSimpleName();
                 isExit = command.isExit();
             } catch (ClaudiaException e) {
                 ui.showError(e.getMessage()); // catch all custom claudia.exceptions here, then print message
-            } finally {
-                ui.showLine();
             }
         }
+    }
+
+    public void guiStart() {
+        tasks = new TaskList(storage.load());
     }
 
     /**
@@ -73,10 +66,12 @@ public class Claudia {
     public String getResponse(String input) {
         try {
             Command command = Parser.parse(input);
-            TaskList response = command.execute(tasks, ui, storage);
-            return response.toString();
+            if (command.isExit()) {
+                System.exit(0);
+            }
+            return command.execute(tasks, ui, storage);
         } catch (ClaudiaException e) {
-            return "Error: " + e.getMessage();
+            return e.getMessage();
         }
     }
 

@@ -35,11 +35,11 @@ public class DeadlineCommandTest {
     @Test
     void executeValidDeadline_addsToTaskList() throws ClaudiaException {
         DeadlineCommand c = new DeadlineCommand("return book /by 02/01/2025 1200");
-        TaskList tasks = c.execute(taskListStub, uiStub, storageStub);
+        String tasks = c.execute(taskListStub, uiStub, storageStub);
 
-        assertEquals(1, tasks.size());
-        assertTrue(tasks.getTask(0) instanceof Deadline);
-        assertEquals("return book", tasks.getTask(0).getDescription());
+        assertEquals(1, taskListStub.size());
+        assertTrue(taskListStub.getTask(0) instanceof Deadline);
+        assertEquals("return book", taskListStub.getTask(0).getDescription());
     }
 
     @Test
@@ -98,8 +98,11 @@ public class DeadlineCommandTest {
         public boolean displayDeadline = false;
 
         @Override
-        public void showDeadline(TaskList tasks, Deadline deadline) {
+        public String showDeadline(TaskList tasks, Deadline deadline) {
             displayDeadline = true;
+            return " Got it. I've added this task:\n" +
+                    "  " + deadline.toString() + "\n" +
+                    String.format(" Now you have %d tasks in the list.\n", tasks.size());
         }
     }
 

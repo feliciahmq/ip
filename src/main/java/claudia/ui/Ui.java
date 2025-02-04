@@ -24,26 +24,22 @@ public class Ui {
     /**
      * Displays a horizontal line separator.
      */
-    public void showLine() {
-        String line = "____________________________________________________________";
-        System.out.println(line);
+    public String showLine() {
+        return "_____________________________________";
     }
 
     /**
      * Displays a loading message when loading data from storage.
      */
-    public void showLoadingError() {
-        System.out.println("Loading data from storage...");
+    public String showLoadingError() {
+        return "Loading data from storage...";
     }
 
     /**
      * Displays a welcome message when Claudia chatbot starts.
      */
-    public void showWelcome() {
-        this.showLine();
-        System.out.println(" Hello! I'm Claudia.");
-        System.out.println(" What can I do for you?");
-        this.showLine();
+    public static String showWelcome() {
+        return " Hello! I'm Claudia.\n What can I do for you?";
     }
 
     /**
@@ -58,16 +54,15 @@ public class Ui {
      *
      * @param errorMessage The error message to display.
      */
-    public void showError(String errorMessage) {
-        System.out.println("OOPS!!! " + errorMessage);
+    public String showError(String errorMessage) {
+        return "OOPS!!! " + errorMessage;
     }
 
     /**
      * Displays a goodbye message when Claudia chatbot terminates.
      */
-    public void showGoodbye() {
-        System.out.println(" Bye. Hope to see you again soon!");
-        this.showLine();
+    public String showGoodbye() {
+        return " Bye. Hope to see you again soon!";
     }
 
     /**
@@ -76,10 +71,10 @@ public class Ui {
      * @param tasks The current list of tasks.
      * @param todo The Todo task that was added.
      */
-    public void showToDo(TaskList tasks, Todo todo) {
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("  " + todo.toString());
-        System.out.printf(" Now you have %d tasks in the list.\n", tasks.size());
+    public String showToDo(TaskList tasks, Todo todo) {
+        return " Got it. I've added this task:\n" +
+                "  " + todo.toString() + "\n" +
+                String.format(" Now you have %d tasks in the list.\n", tasks.size());
     }
 
     /**
@@ -88,10 +83,10 @@ public class Ui {
      * @param tasks The current list of tasks.
      * @param deadline The Deadline task that was added.
      */
-    public void showDeadline(TaskList tasks, Deadline deadline) {
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("  " + deadline.toString());
-        System.out.printf(" Now you have %d tasks in the list.\n", tasks.size());
+    public String showDeadline(TaskList tasks, Deadline deadline) {
+        return " Got it. I've added this task:\n" +
+                "  " + deadline.toString() + "\n" +
+                String.format(" Now you have %d tasks in the list.\n", tasks.size());
     }
 
     /**
@@ -100,10 +95,10 @@ public class Ui {
      * @param tasks The current list of tasks.
      * @param event The Event task that was added.
      */
-    public void showEvent(TaskList tasks, Event event) {
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("  " + event.toString());
-        System.out.printf(" Now you have %d tasks in the list.\n", tasks.size());
+    public String showEvent(TaskList tasks, Event event) {
+        return " Got it. I've added this task:\n" +
+                "  " + event.toString() + "\n" +
+                String.format(" Now you have %d tasks in the list.\n", tasks.size());
     }
 
     /**
@@ -112,10 +107,10 @@ public class Ui {
      * @param tasks The current list of tasks.
      * @param task The task that was removed.
      */
-    public void showDelete(TaskList tasks, Task task) {
-        System.out.println(" Noted. I've removed this task:");
-        System.out.println("  " + task.toString());
-        System.out.printf(" Now you have %d tasks in the list.\n", tasks.size());
+    public String showDelete(TaskList tasks, Task task) {
+        return " Noted. I've removed this task: \n"
+                + "  " + task.toString() + "\n" +
+                String.format(" Now you have %d tasks in the list.\n", tasks.size());
     }
 
     /**
@@ -123,12 +118,13 @@ public class Ui {
      *
      * @param tasks The current list of tasks
      */
-    public void showList(TaskList tasks) {
-        System.out.println(" Here are the tasks in your list:");
+    public String showList(TaskList tasks) {
+        StringBuilder output = new StringBuilder(" Here are the tasks in your list:\n");
 
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.printf(" %d.%s%n", i + 1, tasks.getTask(i).toString());
+            output.append(String.format(" %d.%s%n\n", i + 1, tasks.getTask(i).toString()));
         }
+        return output.toString();
     }
 
     /**
@@ -136,10 +132,9 @@ public class Ui {
      *
      * @param task The task that was marked as done.
      */
-    public void showMark(Task task) {
-        String success = " Nice! I've marked this task as done:\n" + "  "
+    public String showMark(Task task) {
+        return " Nice! I've marked this task as done:\n" + "  "
                 + task.toString();
-        System.out.println(success);
     }
 
     /**
@@ -147,10 +142,9 @@ public class Ui {
      *
      * @param task The task that was marked as not done.
      */
-    public void showUnmark(Task task) {
-        String success = " OK, I've marked this task as not done yet:\n" + "  "
+    public String showUnmark(Task task) {
+        return " OK, I've marked this task as not done yet:\n" + "  "
                 + task.toString();
-        System.out.println(success);
     }
 
     /**
@@ -160,14 +154,15 @@ public class Ui {
      * @param matchingTasks The list of tasks that match the search criteria.
      *                      If the list is empty, an error message is displayed.
      */
-    public void showMatchingTasks(TaskList matchingTasks) {
+    public String showMatchingTasks(TaskList matchingTasks) {
         if (matchingTasks.isEmpty()) {
-            this.showError("No matching tasks found.");
+            return this.showError("No matching tasks found.");
         } else {
-            System.out.println(" Here are the matching tasks in your list:");
+            StringBuilder output = new StringBuilder(" Here are the matching tasks in your list:\n");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.printf(" %d.%s%n", i + 1, matchingTasks.getTask(i).toString());
+                output.append(String.format(" %d.%s%n", i + 1, matchingTasks.getTask(i).toString()));
             }
+            return output.toString();
         }
     }
 }

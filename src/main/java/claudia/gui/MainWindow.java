@@ -1,6 +1,11 @@
 package claudia.gui;
 
+import claudia.exception.ClaudiaException;
+import claudia.misc.TaskList;
+import claudia.parser.Parser;
+import claudia.storage.Storage;
 import claudia.ui.Claudia;
+import claudia.ui.Ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -34,6 +39,12 @@ public class MainWindow extends AnchorPane {
     /** Injects the Claudia instance */
     public void setClaudia(Claudia c) {
         claudia = c;
+        String welcome = Ui.showWelcome();
+        dialogContainer.getChildren().add(
+                DialogBox.getClaudiaDialog(welcome, claudiaImage)
+        );
+
+        this.claudia.guiStart();
     }
 
     /**
@@ -43,7 +54,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = "lol"; // claudia.getResponse(input);
+        String response = claudia.getResponse(input);
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
