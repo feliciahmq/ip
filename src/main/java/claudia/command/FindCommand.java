@@ -1,13 +1,14 @@
 package claudia.command;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import claudia.exception.ClaudiaException;
 import claudia.misc.TaskList;
 import claudia.storage.Storage;
-import claudia.task.Task;
 import claudia.ui.Ui;
 
 /**
@@ -24,15 +25,10 @@ public class FindCommand extends Command {
      * @param keywords The string of search keywords.
      */
     public FindCommand(String... keywords) {
-        this.set = new HashSet<>();
-        for (String keyword : keywords) {
-            if (keyword != null && !keyword.trim().isEmpty()) {
-                String[] words = keyword.trim().toLowerCase().split("\\s+");
-                for (String word : words) {
-                    this.set.add(word);
-                }
-            }
-        }
+        this.set = Arrays.stream(keywords)
+                .filter(keyword -> keyword != null && !keyword.trim().isEmpty())
+                .flatMap(keyword -> Arrays.stream(keyword.trim().toLowerCase().split("\\s+")))
+                .collect(Collectors.toSet());
     }
 
 
@@ -69,18 +65,10 @@ public class FindCommand extends Command {
      * @return A TaskList containing tasks that match at least one keyword.
      */
     private TaskList findTasksByKeyword(TaskList tasks) {
-        ArrayList<Task> matchedTasks = new ArrayList<>();
-
-        for (Task task : tasks.getTasks()) {
-            String description = task.getDescription().toLowerCase();
-            for (String keyword : set) {
-                if (description.contains(keyword)) {
-                    matchedTasks.add(task);
-                    break;
-                }
-            }
-        }
-
-        return new TaskList(matchedTasks);
+        return new TaskList(new ArrayList<>(
+                tasks.getTasks().stream()
+                .filter(task -> set.stream().anyMatch(keyword -> task.getDescription().toLowerCase().contains(keyword)))
+                .collect(Collectors.toList())
+        ));
     }
 }
