@@ -28,7 +28,7 @@ public class Task {
      * @return "X" if the task is done, else " ".
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done claudia.task with X
+        return (isDone ? "X" : "  "); // mark done claudia.task with X
     }
 
     /**

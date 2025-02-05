@@ -1,8 +1,8 @@
-# claudia.ui.Claudia User Guide
+# Claudia User Guide
 
 ![claudia.ui.Claudia Chatbot](./Claudia_Chatbot.png)
 
-claudia.ui.Claudia is a Personal Assistant Chatbot to help the user keep track of their claudia.task using the *Command Line Interface (CLI)*.
+Claudia is a Personal Assistant Chatbot to help the user keep track of their tasks using the *Command Line Interface (CLI)*.
 
 ## Table of Contents
 
@@ -10,16 +10,16 @@ claudia.ui.Claudia is a Personal Assistant Chatbot to help the user keep track o
     - [Adding ToDo](#adding-todo)
     - [Adding Deadline](#adding-deadline)
     - [Adding Event](#adding-todo)
-    - [Listing all claudia.task](#listing-all-tasks)
-    - [Mark/Unmark a claudia.task](#markunmark-a-task)
-    - [Delete a claudia.task](#delete-a-task)
-    - [Exit claudia.ui.Claudia Chatbot](#exit-claudia-chatbot)
+    - [Listing all tasks](#listing-all-tasks)
+    - [Mark/Unmark a tasks](#markunmark-a-task)
+    - [Delete a task](#delete-a-task)
+    - [Exit Claudia Chatbot](#exit-claudia-chatbot)
 
 ## Features
 
 ### Adding ToDo
 
-ToDo: claudia.task without any date/time attached to it
+ToDo: task without any date/time attached to it
 
 **Command**: `todo DESCRIPTION`
 
@@ -27,58 +27,58 @@ ToDo: claudia.task without any date/time attached to it
 
 **Expected Output**:
 ```
-Got it. I've added this claudia.task:
+Got it. I've added this task:
  [T][ ] borrow book
-Now you have 1 claudia.task in the list.
+Now you have 1 tasks in the list.
 ```
 
 ### Adding Deadline
 
-Deadline: claudia.task that needs to be done before a specific date/time
+Deadline: task that needs to be done before a specific date/time
 
 **Command**: `deadline DESCRIPTION /by DATE`
 
-**Example**: `deadline return book /by Sunday`
+**Example**: `deadline return book /by 05/02/2025 1000`
 
 **Expected Output**:
 ```
-Got it. I've added this claudia.task:
- [D][ ] return book (by: Sunday)
-Now you have 2 claudia.task in the list.
+Got it. I've added this task:
+ [D][ ] return book (by: Feb 05 2025, 1000)
+Now you have 2 tasks in the list.
 ```
 
 ### Adding Event
 
-Event: claudia.task that starts at a specific date/time and ends at a specific date/time
+Event: task that starts at a specific date/time and ends at a specific date/time
 
 **Command**: `event DESCRIPTION /from DATE /to DATE`
 
-**Example**: `event project meeting /from Mon 2pm /to 4pm`
+**Example**: `event project meeting /from 06/02/2025 1000 /to 06/02/2025 1200`
 
 **Expected Output**:
 ```
-Got it. I've added this claudia.task:
- [E][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 3 claudia.task in the list.
+Got it. I've added this task:
+ [E][ ] project meeting (from: Feb 06 2025, 1000 to: Feb 06 2025, 1200)
+Now you have 3 tasks in the list.
 ```
 
-### Listing all claudia.task
+### Listing all tasks
 
-Displays a list of all the user's claudia.task.
+Displays a list of all the user's tasks.
 
 **Command**: `list`
 
 **Expected Output**:
 ```
-Here are the claudia.task in your list:
+Here are the tasks in your list:
 1.[T][ ] borrow book
-2.[D][ ] return book (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+2.[D][ ] return book (by: Feb 05 2025, 1000)
+3.[E][ ] project meeting (from: Feb 06 2025, 1000 to: Feb 06 2025, 1200)
 ```
 
-### Mark/Unmark a claudia.task
+### Mark/Unmark a task
 
-**Mark** claudia.task as *done*.
+**Mark** task as *done*.
 
 **Command**: `mark ID`
 
@@ -86,8 +86,8 @@ Here are the claudia.task in your list:
 
 **Expected Output**:
 ```
-Nice! I've marked this claudia.task as done:
- [D][X] return book (by: Sunday)
+Nice! I've marked this task as done:
+ [D][X] return book (by: Feb 05 2025, 1000)
 ```
 
 **Unmark** to change the status back to *not done*.
@@ -98,13 +98,13 @@ Nice! I've marked this claudia.task as done:
 
 **Expected Output**:
 ```
-OK, I've marked this claudia.task as not done yet:
- [D][ ] return book (by: Sunday)
+OK, I've marked this task as not done yet:
+ [D][ ] return book (by: Feb 05 2025, 1000)
 ```
 
-### Delete a claudia.task
+### Delete a task
 
-Delete a claudia.task from the list.
+Delete a task from the list.
 
 **Command**: `delete ID`
 
@@ -112,14 +112,29 @@ Delete a claudia.task from the list.
 
 **Expected Output**:
 ```
-Noted. I've removed this claudia.task:
- [E][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 2 claudia.task in the list.
+Noted. I've removed this task:
+ [E][ ] project meeting (from: Feb 06 2025, 1000 to: Feb 06 2025, 1200)
+Now you have 2 tasks in the list.
 ```
 
-### Exit claudia.ui.Claudia Chatbot
+### Find a task
 
-Terminates claudia.ui.Claudia Chatbot session.
+Find a list of tasks that contains one or more search keywords.
+
+**Command**: `find KEYWORDS...`
+
+**Example**: `find book`
+
+**Expected Output**:
+```
+Here are the matching tasks in your list:
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Feb 05 2025, 1000)
+```
+
+### Exit Claudia Chatbot
+
+Terminates Claudia Chatbot session.
 
 **Command**: `bye`
 

@@ -122,7 +122,7 @@ public class Ui {
         StringBuilder output = new StringBuilder(" Here are the tasks in your list:\n");
 
         for (int i = 0; i < tasks.size(); i++) {
-            output.append(String.format(" %d.%s%n\n", i + 1, tasks.getTask(i).toString()));
+            output.append(String.format(" %d. %s%n\n", i + 1, tasks.getTask(i).toString()));
         }
         return output.toString();
     }
@@ -161,7 +161,7 @@ public class Ui {
             StringBuilder output = new StringBuilder(" Here are the matching tasks in your list:\n");
             for (Task task : matchingTasks.getTasks()) {
                 int index = originalTasks.getTasks().indexOf(task);
-                output.append(String.format(" %d.%s%n", index + 1, task.toString()));
+                output.append(String.format(" %d. %s%n", index + 1, task.toString()));
             }
             return output.toString();
         }

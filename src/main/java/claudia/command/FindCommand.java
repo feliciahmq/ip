@@ -27,7 +27,10 @@ public class FindCommand extends Command {
         this.set = new HashSet<>();
         for (String keyword : keywords) {
             if (keyword != null && !keyword.trim().isEmpty()) {
-                this.set.add(keyword.trim().toLowerCase());
+                String[] words = keyword.trim().toLowerCase().split("\\s+");
+                for (String word : words) {
+                    this.set.add(word);
+                }
             }
         }
     }
