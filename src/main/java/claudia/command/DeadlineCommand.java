@@ -21,6 +21,7 @@ public class DeadlineCommand extends Command {
      * @param description The user input describing the Deadline task.
      */
     public DeadlineCommand(String description) {
+        assert description != null : "Deadline description cannot be null";
         this.description = description;
     }
 
@@ -60,11 +61,14 @@ public class DeadlineCommand extends Command {
      * @throws InvalidFormatException If the input format is incorrect.
      */
     private Deadline getDeadline() throws InvalidFormatException {
+        assert description != null : "Deadline description cannot be null";
         if (!description.contains("/by")) {
             throw new InvalidFormatException("Invalid deadline format. Use: deadline <task> /by <date>");
         }
 
         String[] deadlineInfo = description.split("/by", 2);
+        assert deadlineInfo.length == 2 : "Deadline description should split into exactly two parts";
+
         if (deadlineInfo.length < 2 || deadlineInfo[0].isEmpty() || deadlineInfo[1].isEmpty()) {
             throw new InvalidFormatException("Invalid deadline format. Use: deadline <task> /by <date>");
         }
