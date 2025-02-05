@@ -1,6 +1,6 @@
 # Claudia User Guide
 
-![claudia.ui.Claudia Chatbot](./Claudia_Chatbot.png)
+![Claudia Chatbot](./Claudia_Chatbot.png)
 
 Claudia is a Personal Assistant Chatbot to help the user keep track of their tasks using the *Command Line Interface (CLI)*.
 
