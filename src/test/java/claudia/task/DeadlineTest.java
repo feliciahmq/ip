@@ -1,15 +1,16 @@
 package claudia.task;
 
-import claudia.exception.InvalidFormatException;
-import claudia.parser.DateTimeParser;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import claudia.exception.InvalidFormatException;
+import claudia.parser.DateTimeParser;
 
 public class DeadlineTest {
 
@@ -45,7 +46,7 @@ public class DeadlineTest {
         LocalDateTime dateTime = LocalDateTime.of(2025, 1, 2, 12, 0);
         Deadline deadline = new Deadline("return book", dateTime);
 
-        String expected = String.format("[D][ ] return book (by: %s)", DateTimeParser.parseToString(dateTime));
+        String expected = String.format("[D][  ] return book (by: %s)", DateTimeParser.parseToString(dateTime));
         assertEquals(expected, deadline.toString());
     }
 

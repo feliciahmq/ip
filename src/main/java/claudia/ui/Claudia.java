@@ -12,10 +12,10 @@ import claudia.storage.Storage;
  * It communicates with Ui, Storage and TaskList to handle user interactions.
  */
 public class Claudia {
+    private static final String DEFAULT_FILE_PATH = "data/claudia.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private static final String DEFAULT_FILE_PATH = "data/claudia.txt";
 
     /**
      * Constructs a Claudia chatbot, initializing user interface, storage and TaskList.

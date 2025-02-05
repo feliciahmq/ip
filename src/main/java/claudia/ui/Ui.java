@@ -103,9 +103,9 @@ public class Ui {
      * @return
      */
     private String addTask(TaskList tasks, Task task) {
-        return " Got it. I've added this task:\n" +
-                "  " + task.toString() + "\n" +
-                String.format(" Now you have %d tasks in the list.\n", tasks.size());
+        return " Got it. I've added this task:\n"
+                + "  " + task.toString() + "\n"
+                + String.format(" Now you have %d tasks in the list.\n", tasks.size());
     }
 
     /**
@@ -116,8 +116,9 @@ public class Ui {
      */
     public String showDelete(TaskList tasks, Task task) {
         return " Noted. I've removed this task: \n"
-                + "  " + task.toString() + "\n" +
-                String.format(" Now you have %d tasks in the list.\n", tasks.size());
+                + "  "
+                + task.toString() + "\n"
+                + String.format(" Now you have %d tasks in the list.\n", tasks.size());
     }
 
     /**

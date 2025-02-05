@@ -1,22 +1,22 @@
 package claudia.parser;
 
-import claudia.command.Command;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
 import claudia.command.ByeCommand;
-import claudia.command.ToDoCommand;
+import claudia.command.Command;
 import claudia.command.DeadlineCommand;
+import claudia.command.DeleteCommand;
 import claudia.command.EventCommand;
 import claudia.command.ListCommand;
 import claudia.command.MarkCommand;
+import claudia.command.ToDoCommand;
 import claudia.command.UnmarkCommand;
-import claudia.command.DeleteCommand;
 import claudia.exception.ClaudiaException;
 import claudia.exception.MissingDescriptionException;
 import claudia.exception.UnknownInputException;
-
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 
 public class ParserTest {
 

@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import claudia.exception.ClaudiaException;
 import claudia.exception.InvalidFormatException;
 import claudia.misc.TaskList;
 import claudia.task.Task;
