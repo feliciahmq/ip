@@ -15,19 +15,19 @@ import claudia.ui.Ui;
  * based on one or more keyword.
  */
 public class FindCommand extends Command {
-    private final Set<String> keywords;
+    private final Set<String> set;
 
     /**
      * Constructs a FindCommand with the specified search keywords.
      * Keywords are split by spaces and converted to lowercase.
      *
-     * @param string The string of search keywords separated by spaces.
+     * @param keywords The string of search keywords.
      */
-    public FindCommand(String string) {
-        this.keywords = new HashSet<>();
-        for (String word : string.trim().toLowerCase().split("\\s+")) {
-            if (!word.isEmpty()) {
-                this.keywords.add(word);
+    public FindCommand(String... keywords) {
+        this.set = new HashSet<>();
+        for (String keyword : keywords) {
+            if (keyword != null && !keyword.trim().isEmpty()) {
+                this.set.add(keyword.trim().toLowerCase());
             }
         }
     }
@@ -46,7 +46,7 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws ClaudiaException {
         TaskList matchingTasks = findTasksByKeyword(tasks);
-        return ui.showMatchingTasks(matchingTasks);
+        return ui.showMatchingTasks(matchingTasks, tasks);
     }
 
     /**
@@ -70,7 +70,7 @@ public class FindCommand extends Command {
 
         for (Task task : tasks.getTasks()) {
             String description = task.getDescription().toLowerCase();
-            for (String keyword : keywords) {
+            for (String keyword : set) {
                 if (description.contains(keyword)) {
                     matchedTasks.add(task);
                     break;

@@ -154,13 +154,14 @@ public class Ui {
      * @param matchingTasks The list of tasks that match the search criteria.
      *                      If the list is empty, an error message is displayed.
      */
-    public String showMatchingTasks(TaskList matchingTasks) {
+    public String showMatchingTasks(TaskList matchingTasks, TaskList originalTasks) {
         if (matchingTasks.isEmpty()) {
             return this.showError("No matching tasks found.");
         } else {
             StringBuilder output = new StringBuilder(" Here are the matching tasks in your list:\n");
-            for (int i = 0; i < matchingTasks.size(); i++) {
-                output.append(String.format(" %d.%s%n", i + 1, matchingTasks.getTask(i).toString()));
+            for (Task task : matchingTasks.getTasks()) {
+                int index = originalTasks.getTasks().indexOf(task);
+                output.append(String.format(" %d.%s%n", index + 1, task.toString()));
             }
             return output.toString();
         }
