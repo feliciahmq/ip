@@ -1,24 +1,20 @@
 package claudia.command;
 
-import claudia.exception.ClaudiaException;
-import claudia.exception.InvalidFormatException;
-import claudia.parser.DateTimeParser;
-import claudia.misc.TaskList;
-import claudia.storage.Storage;
-import claudia.task.Deadline;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.ArrayList;
 
-import claudia.task.Task;
-import claudia.ui.Ui;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-
+import claudia.exception.ClaudiaException;
+import claudia.misc.TaskList;
+import claudia.storage.Storage;
+import claudia.task.Deadline;
+import claudia.task.Task;
+import claudia.ui.Ui;
 
 public class DeadlineCommandTest {
     private TaskListStub taskListStub;
@@ -82,7 +78,7 @@ public class DeadlineCommandTest {
     }
 
     private static class StorageStub extends Storage {
-        public boolean savedTasks = false;
+        private boolean savedTasks = false;
 
         public StorageStub() {
             super("stub.txt");
@@ -95,18 +91,16 @@ public class DeadlineCommandTest {
     }
 
     private static class UiStub extends Ui {
-        public boolean displayDeadline = false;
+        private boolean displayDeadline = false;
 
         @Override
         public String showDeadline(TaskList tasks, Deadline deadline) {
             displayDeadline = true;
-            return " Got it. I've added this task:\n" +
-                    "  " + deadline.toString() + "\n" +
-                    String.format(" Now you have %d tasks in the list.\n", tasks.size());
+            return " Got it. I've added this task:\n"
+                    + "  "
+                    + deadline.toString()
+                    + "\n"
+                    + String.format(" Now you have %d tasks in the list.\n", tasks.size());
         }
     }
-
-
-
-
 }

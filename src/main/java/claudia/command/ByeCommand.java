@@ -3,7 +3,6 @@ package claudia.command;
 import claudia.misc.TaskList;
 import claudia.storage.Storage;
 import claudia.ui.Ui;
-import javafx.application.Platform;
 
 /**
  * Represents the command to exit Claudia chatbot.

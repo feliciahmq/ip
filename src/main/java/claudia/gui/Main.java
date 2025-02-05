@@ -2,7 +2,6 @@ package claudia.gui;
 
 import java.io.IOException;
 
-import claudia.exception.ClaudiaException;
 import claudia.ui.Claudia;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -27,7 +26,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            fxmlLoader.<MainWindow>getController().setClaudia(claudia);  // inject the Claudia instance
+            fxmlLoader.<MainWindow>getController().setClaudia(claudia); // inject the Claudia instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

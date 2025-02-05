@@ -72,9 +72,7 @@ public class Ui {
      * @param todo The Todo task that was added.
      */
     public String showToDo(TaskList tasks, Todo todo) {
-        return " Got it. I've added this task:\n" +
-                "  " + todo.toString() + "\n" +
-                String.format(" Now you have %d tasks in the list.\n", tasks.size());
+        return this.addTask(tasks, todo);
     }
 
     /**
@@ -84,9 +82,7 @@ public class Ui {
      * @param deadline The Deadline task that was added.
      */
     public String showDeadline(TaskList tasks, Deadline deadline) {
-        return " Got it. I've added this task:\n" +
-                "  " + deadline.toString() + "\n" +
-                String.format(" Now you have %d tasks in the list.\n", tasks.size());
+        return this.addTask(tasks, deadline);
     }
 
     /**
@@ -96,9 +92,20 @@ public class Ui {
      * @param event The Event task that was added.
      */
     public String showEvent(TaskList tasks, Event event) {
-        return " Got it. I've added this task:\n" +
-                "  " + event.toString() + "\n" +
-                String.format(" Now you have %d tasks in the list.\n", tasks.size());
+        return this.addTask(tasks, event);
+    }
+
+    /**
+     * Displays a message showing the information of the task added.
+     *
+     * @param tasks The current list of tasks.
+     * @param task The Task task that was added.
+     * @return
+     */
+    private String addTask(TaskList tasks, Task task) {
+        return " Got it. I've added this task:\n"
+                + "  " + task.toString() + "\n"
+                + String.format(" Now you have %d tasks in the list.\n", tasks.size());
     }
 
     /**
@@ -109,8 +116,9 @@ public class Ui {
      */
     public String showDelete(TaskList tasks, Task task) {
         return " Noted. I've removed this task: \n"
-                + "  " + task.toString() + "\n" +
-                String.format(" Now you have %d tasks in the list.\n", tasks.size());
+                + "  "
+                + task.toString() + "\n"
+                + String.format(" Now you have %d tasks in the list.\n", tasks.size());
     }
 
     /**

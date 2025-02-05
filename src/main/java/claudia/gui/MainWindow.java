@@ -1,9 +1,5 @@
 package claudia.gui;
 
-import claudia.exception.ClaudiaException;
-import claudia.misc.TaskList;
-import claudia.parser.Parser;
-import claudia.storage.Storage;
 import claudia.ui.Claudia;
 import claudia.ui.Ui;
 import javafx.fxml.FXML;
