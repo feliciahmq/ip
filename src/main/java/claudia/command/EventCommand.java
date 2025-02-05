@@ -21,6 +21,7 @@ public class EventCommand extends Command {
      * @param description The user input describing the Event task.
      */
     public EventCommand(String description) {
+        assert description != null : "Event description cannot be null";
         this.description = description;
     }
 
@@ -60,17 +61,23 @@ public class EventCommand extends Command {
      * @throws InvalidFormatException If the input format is incorrect.
      */
     private Event getEvent() throws InvalidFormatException {
+        assert description != null : "Event description cannot be null";
+
         // missing /from or /to
         if (!description.contains("/from") || !description.contains("/to")) {
             throw new InvalidFormatException("Invalid event format. Use: event <task> /from <start> /to <end>");
         }
 
         String[] eventInfo = description.split("/from", 2);
+        assert eventInfo.length == 2 : "Event description should be split into exactly two parts";
+
         if (eventInfo.length < 2 || eventInfo[0].isEmpty() || eventInfo[1].isEmpty()) {
             throw new InvalidFormatException("Invalid event format. Use: event <task> /from <start> /to <end>");
         }
 
         String[] dateTime = eventInfo[1].split("/to", 2);
+        assert eventInfo.length == 2 : "Event date time should be split into exactly two parts";
+
         if (dateTime.length < 2 || dateTime[0].isEmpty() || dateTime[1].isEmpty()) {
             throw new InvalidFormatException("Invalid event format. Use: event <task> /from <start> /to <end>");
         }
