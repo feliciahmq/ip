@@ -17,7 +17,7 @@ public class ByeCommand extends Command {
      * @param tasks The current list of tasks.
      * @param ui The Ui handler for user interactions.
      * @param storage The storage handler for saving or loading tasks.
-     * @return The updated task list (unchanged).
+     * @return The string output after executing the command.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {

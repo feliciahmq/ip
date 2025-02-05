@@ -153,6 +153,8 @@ public class Ui {
      *
      * @param matchingTasks The list of tasks that match the search criteria.
      *                      If the list is empty, an error message is displayed.
+     * @param originalTasks The list of tasks in the TaskList, to be used to find original
+     *                      index of task.
      */
     public String showMatchingTasks(TaskList matchingTasks, TaskList originalTasks) {
         if (matchingTasks.isEmpty()) {

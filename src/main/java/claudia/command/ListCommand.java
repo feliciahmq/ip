@@ -18,7 +18,7 @@ public class ListCommand extends Command {
      * @param tasks The current list of tasks.
      * @param ui The Ui handler for user interactions.
      * @param storage The storage handler for saving or loading tasks.
-     * @return The task list (unchanged).
+     * @return The string output after executing the command.
      * @throws ClaudiaException If the task list is empty.
      */
     @Override

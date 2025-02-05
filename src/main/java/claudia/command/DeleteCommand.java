@@ -32,7 +32,7 @@ public class DeleteCommand extends Command {
      * @param tasks The current list of tasks.
      * @param ui The Ui handler for user interactions.
      * @param storage The storage handler for saving or loading tasks.
-     * @return The updated task list after deleting the specified task.
+     * @return The string output after executing the command.
      * @throws ClaudiaException If the list is empty, the index is invalid or the number format is incorrect.
      */
     @Override

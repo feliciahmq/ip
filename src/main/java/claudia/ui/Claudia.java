@@ -56,12 +56,19 @@ public class Claudia {
         }
     }
 
+    /**
+     * Runs Claudia chatbot, loading storage and TaskList
+     * when GUI starts.
+     */
     public void guiStart() {
         tasks = new TaskList(storage.load());
     }
 
     /**
      * Generates a response for the user's chat message.
+     *
+     * @param input String input by the user.
+     * @return String output after executing the user's command.
      */
     public String getResponse(String input) {
         try {

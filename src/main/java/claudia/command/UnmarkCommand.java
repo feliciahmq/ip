@@ -31,7 +31,7 @@ public class UnmarkCommand extends Command {
      * @param tasks The current list of tasks.
      * @param ui The Ui handler for user interactions.
      * @param storage The storage handler for saving or loading tasks.
-     * @return The updated task list after marking the task as not done.
+     * @return The string output after executing the command.
      * @throws ClaudiaException If the index is invalid or the number format is incorrect.
      */
     @Override
