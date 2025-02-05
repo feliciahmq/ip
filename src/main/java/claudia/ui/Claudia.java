@@ -18,7 +18,7 @@ public class Claudia {
     private static final String DEFAULT_FILE_PATH = "data/claudia.txt";
 
     /**
-     * Constructs a Friday chatbot, initializing user interface, storage and TaskList.
+     * Constructs a Claudia chatbot, initializing user interface, storage and TaskList.
      * Reads and writes to the storage file specified by the file path.
      *
      * @param filePath Path to the storage file.
