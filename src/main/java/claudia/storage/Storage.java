@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import claudia.exception.ClaudiaException;
+import claudia.exception.InvalidFormatException;
 import claudia.misc.TaskList;
 import claudia.task.Task;
 
@@ -43,7 +44,7 @@ public class Storage {
                 fw.write(t.fileFormat() + System.lineSeparator()); // specific claudia.task
             }
         } catch (IOException e) {
-            System.out.println("Something went wrong saving tasks: " + e.getMessage());
+            System.out.println("Something went wrong in saving tasks: " + e.getMessage());
         }
     }
 
@@ -51,9 +52,8 @@ public class Storage {
      * Loads tasks from the file into an ArrayList, to be used when initiating a new TaskList.
      *
      * @return A list of tasks loaded from the file.
-     * @throws ClaudiaException If file is not found or an error occurs when parsing the file.
      */
-    public ArrayList<Task> load() throws ClaudiaException {
+    public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
 
@@ -74,6 +74,8 @@ public class Storage {
             }
         } catch (FileNotFoundException e) {
             System.out.println("Something went wrong loading tasks, file not found: " + e.getMessage());
+        } catch (InvalidFormatException e) {
+            System.out.println("Something went wrong parsing file: " + e.getMessage());
         }
 
         return tasks;

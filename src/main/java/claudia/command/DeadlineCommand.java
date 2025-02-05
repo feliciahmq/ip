@@ -36,12 +36,11 @@ public class DeadlineCommand extends Command {
      * @throws ClaudiaException If an error occurs during execution.
      */
     @Override
-    public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws ClaudiaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ClaudiaException {
         Deadline deadline = getDeadline();
         tasks.addTask(deadline);
         storage.save(tasks);
-        ui.showDeadline(tasks, deadline);
-        return tasks;
+        return ui.showDeadline(tasks, deadline);
     }
 
     /**

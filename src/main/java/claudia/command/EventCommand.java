@@ -36,12 +36,11 @@ public class EventCommand extends Command {
      * @throws ClaudiaException If an error occurs during execution.
      */
     @Override
-    public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws ClaudiaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ClaudiaException {
         Event event = getEvent();
         tasks.addTask(event);
         storage.save(tasks);
-        ui.showEvent(tasks, event);
-        return tasks;
+        return ui.showEvent(tasks, event);
     }
 
     /**

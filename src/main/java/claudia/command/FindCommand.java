@@ -44,10 +44,9 @@ public class FindCommand extends Command {
      * @throws ClaudiaException If an error occurs during execution.
      */
     @Override
-    public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws ClaudiaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ClaudiaException {
         TaskList matchingTasks = findTasksByKeyword(tasks);
-        ui.showMatchingTasks(matchingTasks);
-        return matchingTasks;
+        return ui.showMatchingTasks(matchingTasks);
     }
 
     /**

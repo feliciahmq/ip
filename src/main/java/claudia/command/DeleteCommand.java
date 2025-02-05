@@ -36,7 +36,7 @@ public class DeleteCommand extends Command {
      * @throws ClaudiaException If the list is empty, the index is invalid or the number format is incorrect.
      */
     @Override
-    public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws ClaudiaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ClaudiaException {
         if (tasks.isEmpty()) {
             throw new EmptyListException();
         }
@@ -51,12 +51,10 @@ public class DeleteCommand extends Command {
             tasks.removeTask(i);
             storage.save(tasks);
 
-            ui.showDelete(tasks, t);
+            return ui.showDelete(tasks, t);
         } catch (NumberFormatException e) {
             throw new InvalidFormatException("Invalid number.");
         }
-
-        return tasks;
     }
 
     /**

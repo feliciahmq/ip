@@ -25,7 +25,7 @@ public class DateTimeParser {
         try {
             return LocalDateTime.parse(input, INPUT_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new InvalidFormatException("Invalid date format. Please use dd/mm/yyy HHmm.");
+            throw new InvalidFormatException("Invalid date format. Please use dd/mm/yyyy HHmm.");
         }
     }
 

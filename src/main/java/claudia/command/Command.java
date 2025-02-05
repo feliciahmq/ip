@@ -18,10 +18,10 @@ public abstract class Command {
      * @param tasks The current list of tasks.
      * @param ui The Ui handler for user interactions.
      * @param storage The storage handler for saving or loading tasks.
-     * @return The updated task list after executing the command.
+     * @return The string output after executing the command.
      * @throws ClaudiaException If an error occurs during execution.
      */
-    public abstract TaskList execute(TaskList tasks, Ui ui, Storage storage) throws ClaudiaException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws ClaudiaException;
 
     /**
      * Indicates whether this command should terminate the chatbot.

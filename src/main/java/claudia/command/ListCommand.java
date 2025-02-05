@@ -22,14 +22,12 @@ public class ListCommand extends Command {
      * @throws ClaudiaException If the task list is empty.
      */
     @Override
-    public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws ClaudiaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ClaudiaException {
         if (storage.load().isEmpty()) {
             throw new EmptyListException();
         }
 
-        ui.showList(tasks);
-
-        return tasks;
+        return ui.showList(tasks);
     }
 
     /**

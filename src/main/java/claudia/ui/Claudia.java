@@ -15,6 +15,7 @@ public class Claudia {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private static final String DEFAULT_FILE_PATH = "data/claudia.txt";
 
     /**
      * Constructs a Friday chatbot, initializing user interface, storage and TaskList.
@@ -25,13 +26,14 @@ public class Claudia {
     public Claudia(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
+        tasks = new TaskList();
+    }
 
-        try {
-            tasks = new TaskList(storage.load());
-        } catch (ClaudiaException e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
-        }
+    /**
+     * Overloaded constructor with no arguments
+     */
+    public Claudia() {
+        this(DEFAULT_FILE_PATH);
     }
 
     /**
@@ -39,21 +41,37 @@ public class Claudia {
      * till exit command is given by user.
      */
     public void run() {
-        ui.showWelcome();
         boolean isExit = false;
+        tasks = new TaskList(storage.load());
 
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                ui.showLine();
                 Command command = Parser.parse(fullCommand); // returns specific claudia.command type
                 command.execute(tasks, ui, storage);
                 isExit = command.isExit();
             } catch (ClaudiaException e) {
                 ui.showError(e.getMessage()); // catch all custom claudia.exceptions here, then print message
-            } finally {
-                ui.showLine();
             }
+        }
+    }
+
+    public void guiStart() {
+        tasks = new TaskList(storage.load());
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            if (command.isExit()) {
+                System.exit(0);
+            }
+            return command.execute(tasks, ui, storage);
+        } catch (ClaudiaException e) {
+            return e.getMessage();
         }
     }
 

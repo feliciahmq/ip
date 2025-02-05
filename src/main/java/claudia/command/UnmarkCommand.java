@@ -35,7 +35,7 @@ public class UnmarkCommand extends Command {
      * @throws ClaudiaException If the index is invalid or the number format is incorrect.
      */
     @Override
-    public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws ClaudiaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ClaudiaException {
         try {
             int i = Integer.parseInt(index) - 1; // zero-based
             if (i < 0 || i >= tasks.size()) {
@@ -45,12 +45,10 @@ public class UnmarkCommand extends Command {
             Task t = tasks.getTask(i);
             t.markAsNotDone();
             storage.save(tasks);
-            ui.showUnmark(t);
+            return ui.showUnmark(t);
         } catch (NumberFormatException e) {
             throw new InvalidFormatException("Invalid number.");
         }
-
-        return tasks;
     }
 
     /**
