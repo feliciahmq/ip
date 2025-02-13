@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,20 +18,27 @@ public class DeadlineTest {
     @Test
     void testFileFormat() {
         LocalDateTime dateTime = LocalDateTime.of(2025, 2, 1, 12, 0);
-        Deadline deadline = new Deadline("return book", dateTime);
+        LinkedHashSet<String> tags = new LinkedHashSet<>();
+        tags.add("urgent");
+        tags.add("school");
 
-        String expectedFormat = "D | 0 | return book | " + DateTimeParser.formatForStorage(dateTime);
+        Deadline deadline = new Deadline("return book", dateTime, tags);
+
+        String expectedFormat = String.format("D | 0 | return book | %s | urgent school",
+                DateTimeParser.formatForStorage(dateTime));;
         assertEquals(expectedFormat, deadline.fileFormat());
     }
 
     @Test
     void testParseFormat() throws InvalidFormatException {
-        String format = "D | 1 | return book | 2025-02-01 12:00";
+        String format = "D | 1 | return book | 2025-02-01 12:00 | urgent school";
         Deadline deadline = Deadline.parseFormat(format);
 
         assertTrue(deadline.isDone);
         assertEquals("return book", deadline.getDescription());
         assertEquals(LocalDateTime.of(2025, 2, 1, 12, 0), deadline.by);
+        assertTrue(deadline.getTags().contains("urgent"));
+        assertTrue(deadline.getTags().contains("school"));
     }
 
     @Test
@@ -44,9 +52,14 @@ public class DeadlineTest {
     @Test
     void testToString() {
         LocalDateTime dateTime = LocalDateTime.of(2025, 1, 2, 12, 0);
-        Deadline deadline = new Deadline("return book", dateTime);
+        LinkedHashSet<String> tags = new LinkedHashSet<>();
+        tags.add("urgent");
+        tags.add("school");
 
-        String expected = String.format("[D][  ] return book (by: %s)", DateTimeParser.parseToString(dateTime));
+        Deadline deadline = new Deadline("return book", dateTime, tags);
+
+        String expected = String.format("[D][  ] return book (by: %s)\n #urgent #school",
+                DateTimeParser.parseToString(dateTime));
         assertEquals(expected, deadline.toString());
     }
 
