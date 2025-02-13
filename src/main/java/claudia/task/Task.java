@@ -1,8 +1,6 @@
 package claudia.task;
 
-import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.Set;
 
 import claudia.exception.InvalidFormatException;
 
@@ -28,12 +26,25 @@ public class Task {
         this.tags = new LinkedHashSet<>();
     }
 
+    /**
+     *  Constructs a new Task with the description, completion status and tags.
+     *
+     * @param description The description of the task.
+     * @param isDone If the task is marked or not.
+     * @param tags A set of tags of the task.
+     */
     public Task(String description, boolean isDone, LinkedHashSet<String> tags) {
         this.description = description;
         this.isDone = isDone;
         this.tags = tags;
     }
 
+    /**
+     *  Constructs a new Task with the description and tags.
+     *
+     * @param description The description of the task.
+     * @param tags A set of tags of the task.
+     */
     public Task(String description, LinkedHashSet<String> tags) {
         this.description = description;
         this.isDone = isDone();

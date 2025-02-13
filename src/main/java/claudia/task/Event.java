@@ -27,6 +27,14 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Constructs an Event task with the specified description, start time, end time, and tags.
+     *
+     * @param description The description of the Event task.
+     * @param from The start date of the Event task.
+     * @param to The end date of the Event task.
+     * @param tags A set of tags of the Event task.
+     */
     public Event(String description, LocalDateTime from, LocalDateTime to, LinkedHashSet<String> tags) {
         super(description, tags);
         this.from = from;

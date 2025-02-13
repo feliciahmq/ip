@@ -81,6 +81,11 @@ public class TaskList {
         return tasks.get(index);
     }
 
+    /**
+     * Updates an existing task in the task list if it matches the provided updated task.
+     *
+     * @param updatedTask The task with updated details that should replace an existing task.
+     */
     public void updateTask(Task updatedTask) {
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).equals(updatedTask)) {

@@ -11,13 +11,31 @@ import claudia.storage.Storage;
 import claudia.task.Task;
 import claudia.ui.Ui;
 
+/**
+ * Represents a command to tag a task from the task list.
+ */
 public class TagCommand extends Command {
     private final String description;
 
+    /**
+     * Constructs a TagCommand with the specified task index and tags.
+     *
+     * @param description The index of the task to be tagged and tags, as a string.
+     */
     public TagCommand(String description) {
         this.description = description;
     }
 
+    /**
+     * Executes TagCommand by updating a task from the task list,
+     * updating storage, and displaying it in the user interface.
+     *
+     * @param tasks The current list of tasks.
+     * @param ui The Ui handler for user interactions.
+     * @param storage The storage handler for saving or loading tasks.
+     * @return The string output after executing the command.
+     * @throws ClaudiaException If the tag format is valid, the index is invalid or the number format is incorrect.
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws ClaudiaException {
         String[] info = description.split("\\s+");
@@ -59,6 +77,11 @@ public class TagCommand extends Command {
         }
     }
 
+    /**
+     * Indicates TagCommand will not exit Claudia chatbot.
+     *
+     * @return <code>false</code> as TagCommand will not terminate Claudia chatbot.
+     */
     @Override
     public boolean isExit() {
         return false;

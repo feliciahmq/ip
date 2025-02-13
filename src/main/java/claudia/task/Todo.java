@@ -17,6 +17,13 @@ public class Todo extends Task {
         super(description);
     }
 
+    /**
+     * Constructs a ToDo task with the description, completion status and tags.
+     *
+     * @param description The description of the ToDo task.
+     * @param isDone If the Todo task is marked or not.
+     * @param tags A set of tags of the Todo task.
+     */
     public Todo(String description, boolean isDone, LinkedHashSet<String> tags) {
         super(description, isDone, tags);
     }

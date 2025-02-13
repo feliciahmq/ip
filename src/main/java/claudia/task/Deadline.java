@@ -24,6 +24,13 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Constructs a Deadline task with the specified description, due date and a set of tags.
+     *
+     * @param description The description of the Deadline task.
+     * @param by The due date of the Deadline task.
+     * @param tags The set of tags of the Deadline task.
+     */
     public Deadline(String description, LocalDateTime by, LinkedHashSet<String> tags) {
         super(description, tags);
         this.by = by;
