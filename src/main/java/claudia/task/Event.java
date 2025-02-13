@@ -1,6 +1,8 @@
 package claudia.task;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 
 import claudia.exception.InvalidFormatException;
 import claudia.parser.DateTimeParser;
@@ -25,15 +27,26 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public Event(String description, LocalDateTime from, LocalDateTime to, LinkedHashSet<String> tags) {
+        super(description, tags);
+        this.from = from;
+        this.to = to;
+    }
+
     /**
      * Returns a formatted string of Event task to save to storage file.
      *
      * @return The file format representation of the Event task.
      */
     public String fileFormat() {
-        return String.format("E | %s | %s | %s | %s", super.isDone() ? "1" : "0",
+        String tagName = Arrays.stream(super.getTags().split("\\s+"))
+                .map(tag -> tag.replaceAll("^#+", ""))
+                .filter(tag -> !tag.isEmpty())
+                .reduce((tag1, tag2) -> tag1 + " " + tag2)
+                .orElse("");
+        return String.format("E | %s | %s | %s | %s | %s", super.isDone() ? "1" : "0",
                 super.getDescription(), DateTimeParser.formatForStorage(from),
-                DateTimeParser.formatForStorage(to));
+                DateTimeParser.formatForStorage(to), tagName);
     }
 
     /**
@@ -49,7 +62,19 @@ public class Event extends Task {
         LocalDateTime from = DateTimeParser.parseFromStorage(info[3].trim());
         LocalDateTime to = DateTimeParser.parseFromStorage(info[4].trim());
 
-        Event event = new Event(desc, from, to);
+        LinkedHashSet<String> tagSet = new LinkedHashSet<>();
+
+        if (info.length > 5 && !info[5].trim().isEmpty()) {
+            String[] splitTags = info[5].trim().split("\\s+");
+            for (String tag : splitTags) {
+                if (!tag.isEmpty()) {
+                    String tagName = tag.replaceAll("^#+", "");
+                    tagSet.add(tagName);
+                }
+            }
+        }
+
+        Event event = new Event(desc, from, to, tagSet);
         if (isDone) {
             event.markAsDone();
         }
@@ -64,7 +89,11 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(),
-                DateTimeParser.parseToString(this.from), DateTimeParser.parseToString(this.to));
+        return String.format("[E]%s (from: %s to: %s)\n%s",
+                super.toString(),
+                DateTimeParser.parseToString(this.from),
+                DateTimeParser.parseToString(this.to),
+                super.getTags()
+        );
     }
 }

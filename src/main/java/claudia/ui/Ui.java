@@ -1,12 +1,16 @@
 package claudia.ui;
 
+import java.util.LinkedHashSet;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import claudia.misc.TaskList;
 import claudia.task.Deadline;
 import claudia.task.Event;
 import claudia.task.Task;
 import claudia.task.Todo;
+import javafx.application.Platform;
 
 /**
  * Handles messages displayed by chatbot.
@@ -62,6 +66,11 @@ public class Ui {
      * Displays a goodbye message when Claudia chatbot terminates.
      */
     public String showGoodbye() {
+        new Timer().schedule(new TimerTask() {
+            public void run() {
+                Platform.runLater(Platform::exit);
+            }
+        }, 2000);
         return " Bye. Hope to see you again soon!";
     }
 
@@ -99,7 +108,7 @@ public class Ui {
      * Displays a message showing the information of the task added.
      *
      * @param tasks The current list of tasks.
-     * @param task The Task task that was added.
+     * @param task The task that was added.
      * @return
      */
     private String addTask(TaskList tasks, Task task) {
@@ -175,5 +184,9 @@ public class Ui {
             }
             return output.toString();
         }
+    }
+
+    public String showTag(Task task, LinkedHashSet<String> tags) {
+        return "Added tag: #" + String.join(" #", tags) + " to task: \n" + task;
     }
 }

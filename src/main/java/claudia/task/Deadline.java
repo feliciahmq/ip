@@ -1,6 +1,8 @@
 package claudia.task;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 
 import claudia.exception.InvalidFormatException;
 import claudia.parser.DateTimeParser;
@@ -22,14 +24,24 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public Deadline(String description, LocalDateTime by, LinkedHashSet<String> tags) {
+        super(description, tags);
+        this.by = by;
+    }
+
     /**
      * Returns a formatted string of Deadline task to save to storage file.
      *
      * @return The file format representation of the Deadline task.
      */
     public String fileFormat() {
-        return String.format("D | %s | %s | %s", super.isDone() ? "1" : "0",
-                super.getDescription(), DateTimeParser.formatForStorage(by));
+        String tagName = Arrays.stream(super.getTags().split("\\s+"))
+                .map(tag -> tag.replaceAll("^#+", ""))
+                .filter(tag -> !tag.isEmpty())
+                .reduce((tag1, tag2) -> tag1 + " " + tag2)
+                .orElse("");
+        return String.format("D | %s | %s | %s | %s", super.isDone() ? "1" : "0",
+                super.getDescription(), DateTimeParser.formatForStorage(by), tagName);
     }
 
     /**
@@ -44,7 +56,19 @@ public class Deadline extends Task {
         String desc = info[2].trim();
         LocalDateTime dateTime = DateTimeParser.parseFromStorage(info[3].trim());
 
-        Deadline deadline = new Deadline(desc, dateTime);
+        LinkedHashSet<String> tagSet = new LinkedHashSet<>();
+
+        if (info.length > 4 && !info[4].trim().isEmpty()) {
+            String[] splitTags = info[4].trim().split("\\s+");
+            for (String tag : splitTags) {
+                if (!tag.isEmpty()) {
+                    String tagName = tag.replaceAll("^#+", "");
+                    tagSet.add(tagName);
+                }
+            }
+        }
+
+        Deadline deadline = new Deadline(desc, dateTime, tagSet);
         if (isDone) {
             deadline.markAsDone();
         }
@@ -59,7 +83,10 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)",
-                super.toString(), DateTimeParser.parseToString(this.by));
+        return String.format("[D]%s (by: %s)\n%s",
+                super.toString(),
+                DateTimeParser.parseToString(this.by),
+                super.getTags()
+        );
     }
 }

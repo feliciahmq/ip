@@ -8,6 +8,7 @@ import claudia.command.EventCommand;
 import claudia.command.FindCommand;
 import claudia.command.ListCommand;
 import claudia.command.MarkCommand;
+import claudia.command.TagCommand;
 import claudia.command.ToDoCommand;
 import claudia.command.UnmarkCommand;
 import claudia.exception.ClaudiaException;
@@ -32,6 +33,7 @@ public class Parser {
         EVENT,
         DELETE,
         FIND,
+        TAG,
         UNKNOWN;
 
         /**
@@ -42,7 +44,7 @@ public class Parser {
          */
         public static CommandType fromString(String command) {
             try {
-                return CommandType.valueOf(command.toUpperCase());
+                return CommandType.valueOf(command.trim().toUpperCase());
             } catch (IllegalArgumentException e) {
                 return CommandType.UNKNOWN;
             }
@@ -57,7 +59,7 @@ public class Parser {
      * @throws ClaudiaException If an error occurs during parsing.
      */
     public static Command parse(String input) throws ClaudiaException {
-        String[] commands = input.split(" ", 2);
+        String[] commands = input.trim().split(" ", 2);
         CommandType command = CommandType.fromString(commands[0]);
 
         switch (command) {
@@ -86,6 +88,9 @@ public class Parser {
         case FIND:
             checkMissingDescription(commands);
             return new FindCommand(commands[1]);
+        case TAG:
+            checkMissingDescription(commands);
+            return new TagCommand(commands[1]);
         default:
             throw new UnknownInputException();
         }

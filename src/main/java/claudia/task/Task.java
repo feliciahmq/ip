@@ -1,5 +1,9 @@
 package claudia.task;
 
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import claudia.exception.InvalidFormatException;
 
 /**
@@ -10,6 +14,7 @@ import claudia.exception.InvalidFormatException;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected LinkedHashSet<String> tags;
 
     /**
      * Constructs a new Task with the given description.
@@ -20,7 +25,21 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.tags = new LinkedHashSet<>();
     }
+
+    public Task(String description, boolean isDone, LinkedHashSet<String> tags) {
+        this.description = description;
+        this.isDone = isDone;
+        this.tags = tags;
+    }
+
+    public Task(String description, LinkedHashSet<String> tags) {
+        this.description = description;
+        this.isDone = isDone();
+        this.tags = tags;
+    }
+
 
     /**
      * Returns the status icon of the task.
@@ -98,6 +117,23 @@ public class Task {
         default:
             throw new IllegalArgumentException("Unknown task: " + type);
         }
+    }
+
+    public void addTag(String tag) {
+        tags.add(tag);
+    }
+
+    public String getTags() {
+        if (tags.isEmpty()) {
+            return "";
+        }
+
+        StringBuilder tagsString = new StringBuilder();
+        for (String tag : tags) {
+            tagsString.append(" #").append(tag.replaceAll("^#+", "")).append(" ");
+        }
+
+        return tagsString.toString().trim();
     }
 
     /**

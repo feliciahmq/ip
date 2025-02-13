@@ -47,13 +47,13 @@ public class DeleteCommand extends Command {
                 throw new InvalidTaskNumberException(tasks.size());
             }
 
-            Task t = tasks.getTask(i);
+            Task task = tasks.getTask(i);
             tasks.removeTask(i);
             storage.save(tasks);
 
-            return ui.showDelete(tasks, t);
+            return ui.showDelete(tasks, task);
         } catch (NumberFormatException e) {
-            throw new InvalidFormatException("Invalid number.");
+            throw new InvalidFormatException("Invalid number. Use: delete <task number>");
         }
     }
 
