@@ -47,7 +47,7 @@ public class MarkCommand extends Command {
             storage.save(tasks);
             return ui.showMark(t);
         } catch (NumberFormatException e) {
-            throw new InvalidFormatException("Invalid number.");
+            throw new InvalidFormatException("Invalid number. Use: mark <task number>");
         }
     }
 

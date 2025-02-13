@@ -47,7 +47,7 @@ public class UnmarkCommand extends Command {
             storage.save(tasks);
             return ui.showUnmark(t);
         } catch (NumberFormatException e) {
-            throw new InvalidFormatException("Invalid number.");
+            throw new InvalidFormatException("Invalid number. Use: unmark <task number>");
         }
     }
 

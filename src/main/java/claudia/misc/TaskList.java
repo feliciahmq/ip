@@ -80,4 +80,13 @@ public class TaskList {
     public Task getTask(int index) {
         return tasks.get(index);
     }
+
+    public void updateTask(Task updatedTask) {
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).equals(updatedTask)) {
+                tasks.set(i, updatedTask);
+                return;
+            }
+        }
+    }
 }

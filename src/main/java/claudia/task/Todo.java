@@ -1,5 +1,8 @@
 package claudia.task;
 
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+
 /**
  * Represents a ToDo task with a description.
  */
@@ -14,13 +17,22 @@ public class Todo extends Task {
         super(description);
     }
 
+    public Todo(String description, boolean isDone, LinkedHashSet<String> tags) {
+        super(description, isDone, tags);
+    }
+
     /**
      * Returns a formatted string of Todo task to save to storage file.
      *
      * @return The file format representation of the Todo task.
      */
     public String fileFormat() {
-        return String.format("T | %s | %s", super.isDone() ? "1" : "0", super.getDescription());
+        String tagName = Arrays.stream(super.getTags().split("\\s+"))
+                .map(tag -> tag.replaceAll("^#+", ""))
+                .filter(tag -> !tag.isEmpty())
+                .reduce((tag1, tag2) -> tag1 + " " + tag2)
+                .orElse("");
+        return String.format("T | %s | %s | %s", super.isDone() ? "1" : "0", super.getDescription(), tagName);
     }
 
     /**
@@ -31,10 +43,22 @@ public class Todo extends Task {
      */
     public static Todo parseFormat(String format) {
         String[] info = format.split("\\|");
-        boolean isDone = info[1].trim().equals("1");
+        boolean isDone = info[1].equals("1");
         String desc = info[2].trim();
 
-        Todo todo = new Todo(desc);
+        LinkedHashSet<String> tagSet = new LinkedHashSet<>();
+
+        if (info.length > 3 && !info[3].trim().isEmpty()) {
+            String[] splitTags = info[3].trim().split("\\s+");
+            for (String tag : splitTags) {
+                if (!tag.isEmpty()) {
+                    String tagName = tag.replaceAll("^#+", "");
+                    tagSet.add(tagName);
+                }
+            }
+        }
+
+        Todo todo = new Todo(desc, isDone, tagSet);
         if (isDone) {
             todo.markAsDone();
         }
@@ -49,6 +73,9 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[T]%s", super.toString());
+        return String.format("[T]%s\n%s",
+                super.toString(),
+                super.getTags()
+        );
     }
 }
