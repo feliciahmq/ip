@@ -58,7 +58,7 @@ public class DeadlineTest {
 
         Deadline deadline = new Deadline("return book", dateTime, tags);
 
-        String expected = String.format("[D][  ] return book (by: %s)\n #urgent #school",
+        String expected = String.format("[D][  ] return book (by: %s)\n#urgent  #school",
                 DateTimeParser.parseToString(dateTime));
         assertEquals(expected, deadline.toString());
     }
