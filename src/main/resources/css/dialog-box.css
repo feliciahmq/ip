@@ -14,7 +14,6 @@
 }
 
 #displayPicture {
-    /* Change size of image. */
     -fx-fit-width: 120px;
     -fx-fit-height: 120px;
 
@@ -23,8 +22,13 @@
 
     -fx-border-color: #a29bfe;
     -fx-border-width: 2px;
-
-    /* Rotate image clockwise by degrees. */
-    -fx-rotate: 0;
 }
 
+.error-dialog {
+    -fx-background-color: rgba(255, 204, 204, 0.5);
+    -fx-border-color: #ff4d4d;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-text-fill: #660000;
+}

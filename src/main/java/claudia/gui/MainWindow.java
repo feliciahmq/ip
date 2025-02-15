@@ -50,12 +50,17 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = claudia.getResponse(input);
+        DialogBox userDialog = DialogBox.getUserDialog(input, userImage);
 
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getClaudiaDialog(response, claudiaImage)
-        );
+        String response = claudia.getResponse(input);
+        DialogBox claudiaDialog = DialogBox.getClaudiaDialog(response, claudiaImage);
+
+        if (response.startsWith("NOOOOOO")) {
+            claudiaDialog.getLabel().getStyleClass().add("error-dialog");
+        }
+
+        dialogContainer.getChildren().addAll(userDialog, claudiaDialog);
         userInput.clear();
+
     }
 }

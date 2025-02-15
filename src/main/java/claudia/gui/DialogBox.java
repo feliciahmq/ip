@@ -57,4 +57,8 @@ public class DialogBox extends HBox {
         db.flip();
         return db;
     }
+
+    public Label getLabel() {
+        return dialog;
+    }
 }
