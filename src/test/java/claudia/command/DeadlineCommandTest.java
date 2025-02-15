@@ -42,14 +42,14 @@ public class DeadlineCommandTest {
     void executeValidDeadline_savesToStorage() throws ClaudiaException {
         DeadlineCommand c = new DeadlineCommand("return book /by 02/01/2025 1200");
         c.execute(taskListStub, uiStub, storageStub);
-        assertTrue(storageStub.savedTasks);
+        assertTrue(storageStub.isTasksSaved);
     }
 
     @Test
     void executeValidDeadline_showsUi() throws ClaudiaException {
         DeadlineCommand c = new DeadlineCommand("return book /by 02/01/2025 1200");
         c.execute(taskListStub, uiStub, storageStub);
-        assertTrue(uiStub.displayDeadline);
+        assertTrue(uiStub.isDeadlineDisplayed);
     }
 
     @Test
@@ -78,7 +78,7 @@ public class DeadlineCommandTest {
     }
 
     private static class StorageStub extends Storage {
-        private boolean savedTasks = false;
+        private boolean isTasksSaved = false;
 
         public StorageStub() {
             super("stub.txt");
@@ -86,16 +86,16 @@ public class DeadlineCommandTest {
 
         @Override
         public void save(TaskList tasks) {
-            savedTasks = true;
+            isTasksSaved = true;
         }
     }
 
     private static class UiStub extends Ui {
-        private boolean displayDeadline = false;
+        private boolean isDeadlineDisplayed = false;
 
         @Override
         public String showDeadline(TaskList tasks, Deadline deadline) {
-            displayDeadline = true;
+            isDeadlineDisplayed = true;
             return " Got it. I've added this task:\n"
                     + "  "
                     + deadline.toString()
