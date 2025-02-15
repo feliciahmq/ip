@@ -13,6 +13,6 @@ public class ClaudiaException extends Exception {
      * @param message The message of the exception.
      */
     public ClaudiaException(String message) {
-        super(message);
+        super("NOOOOOO \n" + message);
     }
 }
