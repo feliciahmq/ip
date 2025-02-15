@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import claudia.exception.DateValidationException;
 import claudia.exception.InvalidFormatException;
 
 /**
@@ -21,7 +22,7 @@ public class DateTimeParser {
      * @return The parsed LocalDateTime object.
      * @throws InvalidFormatException If the input format is invalid.
      */
-    public static LocalDateTime parseDateTime(String input) throws InvalidFormatException {
+    public static LocalDateTime parseDateTime(String input) throws DateValidationException {
         assert input != null && !input.trim().isEmpty() : "Input string cannot be null or empty";
 
         try {
@@ -29,7 +30,7 @@ public class DateTimeParser {
             assert parsedDateTime != null : "Parsed LocalDateTime cannot be null";
             return parsedDateTime;
         } catch (DateTimeParseException e) {
-            throw new InvalidFormatException("Invalid date format. Please use dd/mm/yyyy HHmm.");
+            throw new DateValidationException("Invalid date format. Please use dd/mm/yyyy HHmm.");
         }
     }
 
