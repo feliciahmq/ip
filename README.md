@@ -125,6 +125,10 @@ Task list data are saved automatically as a TXT file `[JAR file location]/data/c
 
 **A**: Install the jar file in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Claudia folder.
 
+**Q**: How to run Claudia Chatbot?
+
+**A**: Install the jar file under GitHub Releases in this repository. Navigate to the folder with `claudia.jar` using the `cd` command. Run the command `java -jar claudia.jar`.
+
 ## Acknowledgements
 
 Part of the JavaDocs comments were generated with the assistance of ChatGPT.
