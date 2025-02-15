@@ -1,6 +1,6 @@
 # Claudia User Guide
 
-![Claudia Chatbot](./Claudia_Chatbot.png)
+![Claudia Chatbot](./Ui.png)
 
 Claudia is a Personal Assistant Chatbot to help the user keep track of their tasks using the *Command Line Interface (CLI)*.
 
@@ -11,9 +11,14 @@ Claudia is a Personal Assistant Chatbot to help the user keep track of their tas
     - [Adding Deadline](#adding-deadline)
     - [Adding Event](#adding-todo)
     - [Listing all tasks](#listing-all-tasks)
-    - [Mark/Unmark a tasks](#markunmark-a-task)
+    - [Mark a task](#mark-a-task)
+    - [Unmark a task](#unmark-a-task)
     - [Delete a task](#delete-a-task)
+    - [Find a task](#find-a-task)
+    - [Tag a task](#tag-a-task)
     - [Exit Claudia Chatbot](#exit-claudia-chatbot)
+    - [Saving the data](#saving-the-data)
+- [FAQ](#faq)
 
 ## Features
 
@@ -21,124 +26,101 @@ Claudia is a Personal Assistant Chatbot to help the user keep track of their tas
 
 ToDo: task without any date/time attached to it
 
-**Command**: `todo DESCRIPTION`
+**Format**: `todo DESCRIPTION`
 
 **Example**: `todo borrow book`
-
-**Expected Output**:
-```
-Got it. I've added this task:
- [T][ ] borrow book
-Now you have 1 tasks in the list.
-```
 
 ### Adding Deadline
 
 Deadline: task that needs to be done before a specific date/time
 
-**Command**: `deadline DESCRIPTION /by DATE`
+**Format**: `deadline DESCRIPTION /by DATE`
 
 **Example**: `deadline return book /by 05/02/2025 1000`
-
-**Expected Output**:
-```
-Got it. I've added this task:
- [D][ ] return book (by: Feb 05 2025, 1000)
-Now you have 2 tasks in the list.
-```
 
 ### Adding Event
 
 Event: task that starts at a specific date/time and ends at a specific date/time
 
-**Command**: `event DESCRIPTION /from DATE /to DATE`
+**Format**: `event DESCRIPTION /from DATE /to DATE`
 
 **Example**: `event project meeting /from 06/02/2025 1000 /to 06/02/2025 1200`
 
-**Expected Output**:
-```
-Got it. I've added this task:
- [E][ ] project meeting (from: Feb 06 2025, 1000 to: Feb 06 2025, 1200)
-Now you have 3 tasks in the list.
-```
-
 ### Listing all tasks
 
-Displays a list of all the user's tasks.
+Shows a list of all the user's tasks.
 
-**Command**: `list`
+**Format**: `list`
 
 **Expected Output**:
-```
-Here are the tasks in your list:
-1.[T][ ] borrow book
-2.[D][ ] return book (by: Feb 05 2025, 1000)
-3.[E][ ] project meeting (from: Feb 06 2025, 1000 to: Feb 06 2025, 1200)
-```
 
-### Mark/Unmark a task
+### Mark a task
 
-**Mark** task as *done*.
+**Mark** a task as *done*.
 
-**Command**: `mark ID`
+**Format**: `mark INDEX`
 
 **Example**: `mark 2`
 
-**Expected Output**:
-```
-Nice! I've marked this task as done:
- [D][X] return book (by: Feb 05 2025, 1000)
-```
+### Unmark a task
 
 **Unmark** to change the status back to *not done*.
 
-**Command**: `unmark ID`
+**Format**: `unmark INDEX`
 
 **Example**: `unmark 2`
 
-**Expected Output**:
-```
-OK, I've marked this task as not done yet:
- [D][ ] return book (by: Feb 05 2025, 1000)
-```
-
 ### Delete a task
 
-Delete a task from the list.
+Delete the specified task from the list.
 
-**Command**: `delete ID`
+**Format**: `delete INDEX`
 
-**Example**: `delete 3`
+- Deletes the task at the specified `INDEX`
+- The index refers to the index number shown in the task list.
+- The index must be a **positive integer** 1, 2, 3...
 
-**Expected Output**:
-```
-Noted. I've removed this task:
- [E][ ] project meeting (from: Feb 06 2025, 1000 to: Feb 06 2025, 1200)
-Now you have 2 tasks in the list.
-```
-
+**Example**: 
+- `list` followed by `delete 3` deletes the 3rd task in the list
+ 
 ### Find a task
 
-Find a list of tasks that contains one or more search keywords.
+Find tasks that contains any of the given keywords.
 
-**Command**: `find KEYWORDS...`
+**Format**: `find KEYWORD [MORE_KEYWORDS]`
 
-**Example**: `find book`
+- The search is case-insensitive. e.g. `book` will match `Book`
+- The order of the keywords does not matter. e.g. `book project` will match `project book`
+- Only the task description is searched.
+- Oly full words will be matched e.g. `Book` will not match `Books`
+- Tasks matching at least one keyword will be returned (i.e. `OR` search). e.g. `book` will return `borrow book`, `return book`
 
-**Expected Output**:
-```
-Here are the matching tasks in your list:
-1. [T][ ] borrow book
-2. [D][ ] return book (by: Feb 05 2025, 1000)
-```
+**Example**:
+- `find project` returns `project meeting`
+
+### Tag a task
+
+Tag a task with one or more tags.
+
+**Format**: `tag INDEX TAG [MORE_TAGS]`
+
+**Example**: `tag 2 school urgent`
+
 
 ### Exit Claudia Chatbot
 
 Terminates Claudia Chatbot session.
 
-**Command**: `bye`
+**Format**: `bye`
 
-**Expected Output**:
-```
-Bye. Hope to see you again soon!
-```
+### Saving the data
+
+Task list data are saved automatically as a TXT file `[JAR file location]/data/claudia.txt`. Advanced users are welcome to update data directly by editing that data file.
+
+❗**Caution**: If your changes to the data file makes its format invalid, Claudia will return an error parsing data. Hence, it is recommended to take a backup of the file before editing it. Edit the data file only if you are confident that you can update it correctly.
+
+## FAQ
+
+**Q**: How do I transfer my data to another Computer?
+
+**A**: Install the jar file in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Claudia folder.
