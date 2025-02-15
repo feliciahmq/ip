@@ -59,7 +59,7 @@ public class DeadlineCommand extends Command {
      * @return A Deadline task created from the user input.
      * @throws InvalidFormatException If the input format is incorrect.
      */
-    private Deadline getDeadline() throws InvalidFormatException {
+    private Deadline getDeadline() throws ClaudiaException {
         assert description != null : "Deadline description cannot be null";
         if (!description.contains("/by")) {
             throw new InvalidFormatException("Invalid deadline format. Use: deadline <task> /by <date>");

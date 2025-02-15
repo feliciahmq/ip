@@ -2,6 +2,7 @@ package claudia.command;
 
 
 import claudia.exception.ClaudiaException;
+import claudia.exception.DateValidationException;
 import claudia.exception.InvalidFormatException;
 import claudia.misc.TaskList;
 import claudia.parser.DateTimeParser;
@@ -60,7 +61,7 @@ public class EventCommand extends Command {
      * @return An Event task created from the user input.
      * @throws InvalidFormatException If the input format is incorrect.
      */
-    private Event getEvent() throws InvalidFormatException {
+    private Event getEvent() throws ClaudiaException {
         assert description != null : "Event description cannot be null";
 
         // missing /from or /to
