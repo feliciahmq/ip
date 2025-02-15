@@ -43,7 +43,7 @@ public class Ui {
      * Displays a welcome message when Claudia chatbot starts.
      */
     public static String showWelcome() {
-        return " Hello! I'm Claudia.\n What can I do for you?";
+        return " ✨Hello! I'm Claudia.✨\n What can I do for you?";
     }
 
     /**
@@ -71,7 +71,7 @@ public class Ui {
                 Platform.runLater(Platform::exit);
             }
         }, 2000);
-        return " Bye. Hope to see you again soon!";
+        return " Bye✨ Hope to see you again soon!✨";
     }
 
     /**
@@ -112,7 +112,7 @@ public class Ui {
      * @return
      */
     private String addTask(TaskList tasks, Task task) {
-        return " Got it. I've added this task:\n"
+        return " Got it\uD83D\uDE43 I've added this task:\n"
                 + "  " + task.toString() + "\n"
                 + String.format(" Now you have %d tasks in the list.\n", tasks.size());
     }
@@ -124,7 +124,7 @@ public class Ui {
      * @param task The task that was removed.
      */
     public String showDelete(TaskList tasks, Task task) {
-        return " Noted. I've removed this task: \n"
+        return " Noted\uD83D\uDE43 I've removed this task: \n"
                 + "  "
                 + task.toString() + "\n"
                 + String.format(" Now you have %d tasks in the list.\n", tasks.size());
