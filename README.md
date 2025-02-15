@@ -19,6 +19,7 @@ Claudia is a Personal Assistant Chatbot to help the user keep track of their tas
   - [Exit Claudia Chatbot](#exit-claudia-chatbot)
   - [Saving the data](#saving-the-data)
 - [FAQ](#faq)
+- [Acknowledgements](#acknowledgements)
 
 ## Features
 
@@ -123,3 +124,7 @@ Task list data are saved automatically as a TXT file `[JAR file location]/data/c
 **Q**: How do I transfer my data to another Computer?
 
 **A**: Install the jar file in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Claudia folder.
+
+## Acknowledgements
+
+Part of the JavaDocs comments were generated with the assistance of ChatGPT.

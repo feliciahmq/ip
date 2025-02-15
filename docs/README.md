@@ -7,18 +7,19 @@ Claudia is a Personal Assistant Chatbot to help the user keep track of their tas
 ## Table of Contents
 
 - [Features](#features)
-    - [Adding ToDo](#adding-todo)
-    - [Adding Deadline](#adding-deadline)
-    - [Adding Event](#adding-todo)
-    - [Listing all tasks](#listing-all-tasks)
-    - [Mark a task](#mark-a-task)
-    - [Unmark a task](#unmark-a-task)
-    - [Delete a task](#delete-a-task)
-    - [Find a task](#find-a-task)
-    - [Tag a task](#tag-a-task)
-    - [Exit Claudia Chatbot](#exit-claudia-chatbot)
-    - [Saving the data](#saving-the-data)
+  - [Adding ToDo](#adding-todo)
+  - [Adding Deadline](#adding-deadline)
+  - [Adding Event](#adding-todo)
+  - [Listing all tasks](#listing-all-tasks)
+  - [Mark a task](#mark-a-task)
+  - [Unmark a task](#unmark-a-task)
+  - [Delete a task](#delete-a-task)
+  - [Find a task](#find-a-task)
+  - [Tag a task](#tag-a-task)
+  - [Exit Claudia Chatbot](#exit-claudia-chatbot)
+  - [Saving the data](#saving-the-data)
 - [FAQ](#faq)
+- [Acknowledgements](#acknowledgements)
 
 ## Features
 
@@ -52,8 +53,6 @@ Shows a list of all the user's tasks.
 
 **Format**: `list`
 
-**Expected Output**:
-
 ### Mark a task
 
 **Mark** a task as *done*.
@@ -80,9 +79,9 @@ Delete the specified task from the list.
 - The index refers to the index number shown in the task list.
 - The index must be a **positive integer** 1, 2, 3...
 
-**Example**: 
+**Example**:
 - `list` followed by `delete 3` deletes the 3rd task in the list
- 
+
 ### Find a task
 
 Find tasks that contains any of the given keywords.
@@ -104,8 +103,9 @@ Tag a task with one or more tags.
 
 **Format**: `tag INDEX TAG [MORE_TAGS]`
 
-**Example**: `tag 2 school urgent`
-
+**Example**:
+- `tag 2 school urgent`
+- `#school` and `#urgent` will be tagged to Task 2
 
 ### Exit Claudia Chatbot
 
@@ -124,3 +124,7 @@ Task list data are saved automatically as a TXT file `[JAR file location]/data/c
 **Q**: How do I transfer my data to another Computer?
 
 **A**: Install the jar file in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Claudia folder.
+
+## Acknowledgements
+
+Part of the JavaDocs comments were generated with the assistance of ChatGPT.
