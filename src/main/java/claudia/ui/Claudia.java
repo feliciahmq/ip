@@ -83,7 +83,7 @@ public class Claudia {
     }
 
     /**
-     * The main entry point of Claudia chatbot.
+     * Entry point of Claudia chatbot.
      * Initializes and starts the program.
      *
      * @param args Command-line arguments (not used).
